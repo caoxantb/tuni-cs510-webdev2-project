@@ -1,5 +1,5 @@
 import { Order } from "../models";
-import { Unauthorized, Forbidden } from "../utils/error";
+import { Unauthorized, Forbidden } from "../utils/httpError";
 
 export const getAllOrders = async (req, res) => {
   if (!req.user) {
@@ -13,7 +13,10 @@ export const getAllOrders = async (req, res) => {
 };
 
 export const getCurrentUserOrders = async (req, res) => {
-  const orders = await Order.find({ userId: req.user?._id });
+  if (!req.user) {
+    throw new Unauthorized("You must be logged in to access this data.");
+  }
+  const orders = await Order.find({ userId: req.user._id });
   res.json(orders);
 };
 
@@ -27,7 +30,7 @@ export const getOrderById = async (req, res) => {
 
   const order = await Order.findById(orderId);
 
-  if (user?.role !== "admin" && user?._id !== order?.userId) {
+  if (user.role !== "admin" && user._id !== order?.userId) {
     throw new Forbidden("You do not have a permission to access this data.");
   }
 

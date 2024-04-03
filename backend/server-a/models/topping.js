@@ -15,6 +15,12 @@ const toppingSchema = new mongoose.Schema({
       message: "Price of items must be greater than zero",
     },
   },
+  type: {
+    type: String,
+    enum: ["meat", "veggies", "cheese", "sauce"],
+    default: "meat",
+    required: true,
+  },
   image: {
     type: String,
     required: true,
