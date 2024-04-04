@@ -9,4 +9,24 @@
 # following the instructions.
 
 
-#FROM node:version...
+FROM node:16
+
+ENV APP_HOME=/app
+
+ENV PORT=${PORT}
+ENV MONGODB_URI=${MONGODB_URI}
+ENV JWT_SECRET=${JWT_SECRET}
+ENV COOKIE_SECRET=${COOKIE_SECRET}
+
+
+WORKDIR ${APP_HOME}
+
+COPY package*.json .
+
+RUN npm install
+
+COPY . .
+
+EXPOSE ${PORT}
+
+CMD ["npm", "run"]
