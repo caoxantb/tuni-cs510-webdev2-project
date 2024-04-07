@@ -1,6 +1,7 @@
 # Web Development 2 Course Project Documentation
 
 _Written by: Xuan-An Cao & Nhan Chau_
+
 _Last updated: 7/4/2024_
 
 This is the temporary documentation for the Web Development 2 Course Project. The file serves as the reference logs during the project and shall be removed along with its images folder once the project is finished and the final documentation is written and included in the repository in .pdf format.
