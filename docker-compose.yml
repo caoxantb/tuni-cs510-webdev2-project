@@ -14,20 +14,22 @@ services:
   # server-a is based on the Docker image the groups produce and build themselves.
   server-a:
     # Change the image information to match your server A image
-    image: # $USERNAME/$IMAGENAME:$TAG, something like group000/node-swagger:3a
+    image: vingroup/server-a:3
     # 'depends_on' and 'command' are  to be used when used
     # with RabbitMQ service in this file. 'depends_on' must be set
     # to RabbitMQ service's name from this file, and 'command'
     # can be modified to be anything, but what is given should
     # work. Just uncomment them
-    # depends_on:
-    #   -  rapid-runner-rabbit
-    # command: ["./utils/wait-for-it.sh", "rapid-runner-rabbit:5672", "--",  "npm", "start"]
+    depends_on:
+      -  rapid-runner-rabbit
+    command: ["./utils/wait-for-it.sh", "rapid-runner-rabbit:5672", "--",  "npm", "start"]
     build:
       dockerfile: Dockerfile
       context:  ./backend/server-a
+    env_file:
+      - .env
     ports:
-      - "12345:8080"
+      - "8080:8080"
     networks:
       - backend
 
@@ -37,27 +39,33 @@ services:
   # A set of needed Docker instructions like 'image:' are shown
   # below, groups should set their values. Groups are free to
   # CRUD the set of instructions as they see fit.
-  # rapid-runner-rabbit:
-  #   image:
-  #   ports:
-  #   expose:
-  #   networks:
-
+  rapid-runner-rabbit:
+    image: rabbitmq:3.13
+    ports:
+      - "15672:15672"  # RabbitMQ management console port
+    expose:
+      - "5672"  # RabbitMQ default port for AMQP
+    networks:
+      - backend
+      
   # much of the server-b service entry can be copied from server-a
   # service above. server-b directory Dockerfile has more
   # information.
   # A set of needed Docker instructions like 'image:' are shown
   # below, groups should set their values. Groups are free to
   # CRUD this set of instructions as they see fit.
-  # server-b:
-      # image:
-      # depends_on:
-      # command: ["./utils/wait-for-it.sh", "rapid-runner-rabbit:5672", "--",  "npm", "start"]
-      # build:
-      #   dockerfile:
-      #   context:
-      # expose:
-      # networks:
+  server-b:
+      image: vingroup/server-b:3
+      depends_on: 
+        - rapid-runner-rabbit
+      command: ["./utils/wait-for-it.sh", "rapid-runner-rabbit:5672", "--",  "npm", "start"]
+      build:
+        dockerfile: Dockerfile
+        context: ./backend/server-b
+      expose: 
+        - "8000"   
+      networks:
+        - backend
 
   # Your group might want to use a database to store some data
   # You can use any database you wish, PostgreSQL, MySQL and
@@ -72,6 +80,7 @@ services:
 # exposed ports.
 networks:
   backend:
+    driver: bridge
 
 # If you use databases for storing information, you can define
 # their volumes here.
