@@ -7,3 +7,17 @@
 # following the instructions.
 
 #FROM node:version...
+
+FROM node:16
+
+ENV APP_HOME=/app
+
+WORKDIR ${APP_HOME}
+
+COPY package*.json .
+
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run"]
