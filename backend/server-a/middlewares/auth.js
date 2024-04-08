@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { User } from "../models";
-import { Forbidden } from "../utils/httpError";
+import { User } from "../models/index.js";
+import { Forbidden } from "../utils/httpError.js";
 
 export const authenticateUser = async (req, res, next) => {
   const token = req.signedCookies?.token;

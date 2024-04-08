@@ -4,7 +4,7 @@ import {
   getCurrentUserOrders,
   getOrderById,
   createOrder,
-} from "../controllers/orderController";
+} from "../controllers/orderController.js";
 
 const orderRouter = express.Router();
 

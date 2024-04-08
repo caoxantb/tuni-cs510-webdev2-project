@@ -1,6 +1,6 @@
-import orderRouter from "./orderRouter";
-import sandwichRouter from "./sandwichRouter";
-import userRouter from "./userRouter";
-import toppingRouter from "./toppingRouter";
+import orderRouter from "./orderRouter.js";
+import sandwichRouter from "./sandwichRouter.js";
+import userRouter from "./userRouter.js";
+import toppingRouter from "./toppingRouter.js";
 
 export { orderRouter, sandwichRouter, userRouter, toppingRouter };

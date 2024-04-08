@@ -5,7 +5,7 @@ import {
   createSandwich,
   updateSandwich,
   deleteSandwich,
-} from "../controllers/sandwichController";
+} from "../controllers/sandwichController.js";
 
 const sandwichRouter = express.Router();
 

@@ -1,5 +1,7 @@
-import { Order } from "../models";
-import { Unauthorized, Forbidden } from "../utils/httpError";
+import { Order } from "../models/index.js";
+import { Unauthorized, Forbidden } from "../utils/httpError.js";
+import { orderHandler } from "../rabbit-utils/orderHandler.js";
+import { addTask } from "../rabbit-utils/sendTask.js";
 
 export const getAllOrders = async (req, res) => {
   if (!req.user) {
@@ -50,6 +52,9 @@ export const createOrder = async (req, res) => {
   });
 
   const newOrder = await Order.create(order);
+
+  await orderHandler(newOrder, "created");
+  addTask("localhost", "backline-order-queue", newOrder);
 
   res.status(201).json(newOrder);
 };

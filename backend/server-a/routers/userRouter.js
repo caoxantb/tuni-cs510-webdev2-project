@@ -6,7 +6,7 @@ import {
   getUserByUsername,
   updateUser,
   deleteUser,
-} from "../controllers/userController";
+} from "../controllers/userController.js";
 
 const userRouter = new express.Router();
 
@@ -17,6 +17,6 @@ userRouter
   .route(":username")
   .get(getUserByUsername)
   .put(updateUser)
-  .deleteUser(deleteUser);
+  .delete(deleteUser);
 
 export default userRouter;

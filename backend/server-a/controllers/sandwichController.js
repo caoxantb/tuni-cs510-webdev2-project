@@ -1,5 +1,5 @@
-import { Sandwich } from "../models";
-import { NotFound } from "../utils/httpError";
+import { Sandwich } from "../models/index.js";
+import { NotFound } from "../utils/httpError.js";
 
 export const getAllSandwiches = async (req, res) => {
   const sandwich = await Sandwich.find({});
