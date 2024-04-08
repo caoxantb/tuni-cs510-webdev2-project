@@ -1,0 +1,19 @@
+{
+  "name": "server-b",
+  "version": "1.0.0",
+  "description": "Server B directory for Web Development 2 - Architecture final project. Refer to the documentation for more information",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://course-gitlab.tuni.fi/compcs510-spring2024/vingroup/-/tree/main"
+  },
+  "author": "Xuan-An Cao (an.cao@tuni.fi) & Nhan Chau (nhan.chau@tuni.fi)",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3"
+  },
+  "type": "module"
+}

@@ -1,6 +1,6 @@
-import Order from "./order";
-import Sandwich from "./sandwich";
-import User from "./user";
-import Topping from "./topping";
+import Order from "./order.js";
+import Sandwich from "./sandwich.js";
+import User from "./user.js";
+import Topping from "./topping.js";
 
 export { Order, Sandwich, User, Topping };

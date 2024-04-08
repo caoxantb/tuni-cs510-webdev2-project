@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { User } from "../models";
-import { BadRequest, NotFound } from "../utils/httpError";
+import { User } from "../models/index.js";
+import { BadRequest, NotFound } from "../utils/httpError.js";
 
 export const userRegister = async (req, res) => {
   const saltRounds = 10;

@@ -1,13 +1,9 @@
 import mongoose from "mongoose";
 
+//TODO: transform to async function
 export const connectDatabase = () => {
   mongoose
-    .connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    })
+    .connect(process.env.MONGODB_URI)
     .then(() => {
       console.log(`Connected to MongoDB`);
     })

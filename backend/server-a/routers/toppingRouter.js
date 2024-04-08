@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllToppings } from "../controllers/toppingController";
+import { getAllToppings } from "../controllers/toppingController.js";
 
 const toppingRouter = express.Router();
 
