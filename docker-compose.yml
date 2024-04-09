@@ -27,7 +27,7 @@ services:
       dockerfile: Dockerfile
       context:  ./backend/server-a
     env_file:
-      - .env
+      - ./backend/server-a/.env
     ports:
       - "8080:8080"
     networks:
@@ -45,6 +45,7 @@ services:
       - "15672:15672"  # RabbitMQ management console port
     expose:
       - "5672"  # RabbitMQ default port for AMQP
+      - "15672"
     networks:
       - backend
       

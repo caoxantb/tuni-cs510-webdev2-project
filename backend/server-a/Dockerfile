@@ -18,13 +18,16 @@ ENV MONGODB_URI=${MONGODB_URI}
 ENV JWT_SECRET=${JWT_SECRET}
 ENV COOKIE_SECRET=${COOKIE_SECRET}
 
-
 WORKDIR ${APP_HOME}
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
 
-CMD ["npm", "run"]
+EXPOSE ${PORT}
+
+RUN chmod +x ./utils/wait-for-it.sh
+
+CMD ["npm", "start"]

@@ -54,7 +54,7 @@ export const createOrder = async (req, res) => {
   const newOrder = await Order.create(order);
 
   await orderHandler(newOrder, "created");
-  addTask("localhost", "backline-order-queue", newOrder);
+  addTask("rapid-runner-rabbit", "backline-order-queue", newOrder);
 
   res.status(201).json(newOrder);
 };

@@ -36,10 +36,10 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
 
 // routes
-app.use("api/v1/order", orderRouter);
-app.use("api/v1/sandwich", sandwichRouter);
-app.use("api/v1/user", userRouter);
-app.use("api/v1/topping", toppingRouter);
+app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/sandwich", sandwichRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/topping", toppingRouter);
 
 // error
 app.use(errorHandler);

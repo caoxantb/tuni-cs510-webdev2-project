@@ -14,10 +14,12 @@ ENV APP_HOME=/app
 
 WORKDIR ${APP_HOME}
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
 
-CMD ["npm", "run"]
+RUN chmod +x ./utils/wait-for-it.sh
+
+CMD ["npm", "start"]
