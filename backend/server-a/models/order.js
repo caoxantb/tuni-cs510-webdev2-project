@@ -17,7 +17,13 @@ const orderSchema = new mongoose.Schema({
     default: "ordered",
     required: true,
   },
-  amount: {
+  toppings: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Topping",
+    },
+  ],
+  quantity: {
     type: Number,
     required: true,
     validate: {

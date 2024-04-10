@@ -5,12 +5,6 @@ const sandwichSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  toppings: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Topping",
-    },
-  ],
   price: {
     type: Number,
     required: true,
@@ -31,6 +25,14 @@ const sandwichSchema = new mongoose.Schema({
     default: "oat",
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
+  originCity: {
+    type: String,
+    required: true,
+  }
 });
 
 const Sandwich = mongoose.model("Sandwich", sandwichSchema);
