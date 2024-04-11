@@ -48,6 +48,7 @@ export const createOrder = async (req, res) => {
 
   const order = new Order({
     ...req.body,
+    orderTime: new Date(),
     userId: user._id,
   });
 

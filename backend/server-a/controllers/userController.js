@@ -1,13 +1,15 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 import { User } from "../models/index.js";
-import { BadRequest, NotFound } from "../utils/httpError.js";
+import { BadRequest, Forbidden, NotFound } from "../utils/httpError.js";
 
 export const userRegister = async (req, res) => {
   const saltRounds = 10;
   const { username, email, role, password } = req.body;
 
-  const user = await User.findOne(username);
+  const user = await User.findOne({ username });
 
   if (user) {
     throw new BadRequest("User already exists");
@@ -36,10 +38,10 @@ export const userRegister = async (req, res) => {
 };
 
 export const userLogin = async (req, res) => {
-  const user = await User.findOne(req.body.username);
+  const user = await User.findOne({ username: req.body.username });
   const validCredentials = !user
     ? false
-    : await bcrypt.compare(password, user.passwordHash);
+    : await bcrypt.compare(req.body.password, user.passwordHash);
   if (!(user && validCredentials)) {
     throw new BadRequest("Invalid credentials");
   }
@@ -64,7 +66,7 @@ export const userLogout = async (req, res) => {
 
 export const getUserByUsername = async (req, res) => {
   const { username } = req.params;
-  const user = await User.findOne(username);
+  const user = await User.findOne({ username });
   if (!user) {
     throw new NotFound("User not found");
   }
@@ -94,4 +96,3 @@ export const deleteUser = async (req, res) => {
   }
   res.status(204).json();
 };
-

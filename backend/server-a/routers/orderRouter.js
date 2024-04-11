@@ -9,7 +9,7 @@ import {
 const orderRouter = express.Router();
 
 orderRouter.route("/").get(getAllOrders).post(createOrder);
-orderRouter.route("/:orderId").get(getOrderById);
 orderRouter.route("/own").get(getCurrentUserOrders);
+orderRouter.route("/:orderId").get(getOrderById);
 
 export default orderRouter;

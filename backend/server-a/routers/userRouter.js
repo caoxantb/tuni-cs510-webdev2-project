@@ -14,7 +14,7 @@ userRouter.route("/register").post(userRegister);
 userRouter.route("/login").post(userLogin);
 userRouter.route("/logout").post(userLogout);
 userRouter
-  .route(":username")
+  .route("/:username")
   .get(getUserByUsername)
   .put(updateUser)
   .delete(deleteUser);

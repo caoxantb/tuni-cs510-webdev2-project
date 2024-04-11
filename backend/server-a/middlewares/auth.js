@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/index.js";
 import { Forbidden } from "../utils/httpError.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const authenticateUser = async (req, res, next) => {
   const token = req.signedCookies?.token;
@@ -9,7 +11,7 @@ export const authenticateUser = async (req, res, next) => {
   }
 
   const cookieOptions = { ...res.app.get("cookieOptions"), signed: true };
-  const decodedToken = jwt.verify(token);
+  const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   if (!decodedToken) {
     res.clearCookie("token", cookieOptions);
     throw new Forbidden("Invalid token");
@@ -22,6 +24,7 @@ export const authenticateUser = async (req, res, next) => {
   }
 
   req.user = user;
-  res.cookie("token", user.getToken(), cookieOptions);
+  const { username, email } = user.toJSON();
+  res.cookie("token", jwt.sign({ username, email }, process.env.JWT_SECRET), cookieOptions);
   next();
 };

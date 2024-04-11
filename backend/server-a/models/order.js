@@ -46,6 +46,10 @@ const orderSchema = new mongoose.Schema({
   addOnNote: {
     type: String,
   },
+  orderTime: {
+    type: Date,
+    required: true,
+  }
 });
 
 const Order = mongoose.model("Order", orderSchema);

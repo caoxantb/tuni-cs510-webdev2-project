@@ -36,7 +36,7 @@ export const getTask = function (rabbitHost, queueName) {
           //console.log(" [x] Task takes %d seconds", secs);
           setTimeout(function () {
             console.log(new Date(), " [x] Done");
-            addTask("rapid-runner-rabbit", "frontline-order-queue");
+            addTask("rapid-runner-rabbit", "frontline-order-queue", body);
             ch.ack(msg);
           }, 10000);
         }
