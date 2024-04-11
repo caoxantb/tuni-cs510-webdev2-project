@@ -1,0 +1,62 @@
+[
+  {
+    "username": "admin1username",
+    "email": "admin1@gmail.com",
+    "password": "admin1password",
+    "role": "admin"
+  },
+  {
+    "username": "admin2username",
+    "email": "admin2@gmail.com",
+    "password": "admin2password",
+    "role": "admin"
+  },
+  {
+    "username": "admin3username",
+    "email": "admin3@gmail.com",
+    "password": "admin3password",
+    "role": "admin"
+  },
+  {
+    "username": "admin4username",
+    "email": "admin4@gmail.com",
+    "password": "admin4password",
+    "role": "admin"
+  },
+  {
+    "username": "admin5username",
+    "email": "admin5@gmail.com",
+    "password": "admin5password",
+    "role": "admin"
+  },
+  {
+    "username": "customer1username",
+    "email": "customer1@gmail.com",
+    "password": "customer1password",
+    "role": "customer"
+  },
+  {
+    "username": "customer2username",
+    "email": "customer2@gmail.com",
+    "password": "customer2password",
+    "role": "customer"
+  },
+  {
+    "username": "customer3username",
+    "email": "customer3@gmail.com",
+    "password": "customer3password",
+    "role": "customer"
+  },
+  {
+    "username": "customer4username",
+    "email": "customer4@gmail.com",
+    "password": "customer4password",
+    "role": "customer"
+  },
+  {
+    "username": "customer5username",
+    "email": "customer5@gmail.com",
+    "password": "customer5password",
+    "role": "customer"
+  }
+]
