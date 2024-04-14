@@ -16,6 +16,18 @@ export const logout = async () => {
   await axios.post(`${BASE_URL}/logout`, { withCredentials: true });
 };
 
+export const getCurrentUser = async (): Promise<User> => {
+  const res = await axios.get(`${BASE_URL}/current`, { withCredentials: true });
+  return res.data;
+};
+
+export const getUserByUsername = async (username: string): Promise<User> => {
+  const res = await axios.get(`${BASE_URL}/${username}`, {
+    withCredentials: true,
+  });
+  return res.data;
+};
+
 export const updateUser = async (
   userId: string,
   data: UserBody
