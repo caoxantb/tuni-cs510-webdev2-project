@@ -52,4 +52,4 @@ type Topping = {
   image: string;
 };
 
-type ToppingType = "name" | "price" | "type" | "image";
+type ToppingType = "meat" | "veggies" | "cheese" | "sauce";
