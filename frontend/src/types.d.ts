@@ -18,7 +18,7 @@ type User = {
   _id: string;
   username: string;
   email: string;
-  passwordHash: string;
+  password: string;
   role: UserRole;
 };
 

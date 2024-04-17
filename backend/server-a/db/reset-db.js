@@ -38,8 +38,8 @@ const readJsonFile = async (path) => {
     await User.deleteMany();
     await Order.deleteMany();
 
-    await Sandwich.create(sandwichesUpdated);
-    await Topping.create(toppings);
+    await Sandwich.insertMany(sandwichesUpdated, { ordered: false });
+    await Topping.insertMany(toppings, { ordered: false });
     await User.create(usersAuthenticated);
   } catch (err) {
     console.error(err);
