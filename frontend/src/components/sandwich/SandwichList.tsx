@@ -61,10 +61,10 @@ const SandwichList: React.FC = () => {
         </div>
         <>
           <div
-            style={{ textAlign: "center", fontSize: "40px", color: "black" }}
+            style={{ textAlign: "center", fontSize: "40px", color: "black", marginTop: "60px" }}
           >
-            <img style={{width: "50%"}} src="/big-divider-cropped.svg" />
-            <h1>MENU</h1>
+            <img style={{width: "80%"}} src="/big-divider-cropped.svg" />
+            <h1 style={{margin: "16px"}}>MENU</h1>
           </div>
           <div
             style={{
@@ -81,12 +81,12 @@ const SandwichList: React.FC = () => {
                   /^([\w\s]+)\s*(?:\(([^)]+)\))?$/
                 );
                 return (
-                  <div style={{ margin: "16px" }}>
+                  <div style={{ margin: "24px" }}>
                     <h3 style={{ margin: "8px" }}>
                       {names && names[1].toUpperCase()} - {sandwich.price}
                     </h3>
                     <h4 style={{ margin: "8px" }}>{names && names[2]}</h4>
-                    <p style={{ margin: "8px 0 16px 0" }}>
+                    <p style={{ margin: "8px 0 24px 0" }}>
                       {sandwich.originCity}
                     </p>
                     <img
@@ -100,7 +100,7 @@ const SandwichList: React.FC = () => {
             </div>
             <div style={{ width: "50%" }}>
               <MapContainer
-                style={{ width: "100%", height: "1600px" }}
+                style={{ width: "100%", height: "1700px" }}
                 center={[16.0544, 106.1022]}
                 zoom={7}
                 scrollWheelZoom={false}
