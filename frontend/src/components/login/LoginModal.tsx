@@ -1,8 +1,8 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { Modal } from "../../styles/loginmodal";
 import { isOpenAtom, isLoggedInAtom, isRegisterAtom } from "../../states/loginState";
 import { Form } from "antd";
-import { login } from "../../services/user";
+import { login, register } from "../../services/user";
 import { currentUserAtom } from "../../states/userState";
 import LoginForm from "./LoginForm";
 import { useState } from "react";
@@ -13,7 +13,7 @@ const LoginModal: React.FC = () => {
 	const [isDisable, setDisable] = useState(false);
 
 	const [isOpen, setOpen] = useRecoilState(isOpenAtom);
-	const isRegister = useRecoilValue(isRegisterAtom);
+	const [isRegister, setRegister] = useRecoilState(isRegisterAtom);
 	const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
 	const setCurrentUser = useSetRecoilState(currentUserAtom);
 
@@ -22,6 +22,7 @@ const LoginModal: React.FC = () => {
 	const handleCancle = () => {
 		form.resetFields();
 		setOpen(false);
+		setRegister(false);
 	};
 
 	const handleOk = async () => {
@@ -31,18 +32,20 @@ const LoginModal: React.FC = () => {
 		setConfirmLoading(true);
 
 		const formValues = form.getFieldsValue();
-		const user: UserLoginBody = {
-			username: formValues.username,
-			password: formValues.password,
-		};
+		const user: UserRegisterBody | UserLoginBody = isRegister
+			? { email: formValues.email, username: formValues.username, password: formValues.password }
+			: { username: formValues.username, password: formValues.password };
 
 		form.resetFields();
 
 		try {
-			const res = await login(user);
-			console.log(res);
+			const res = isRegister
+				? await register(user as UserRegisterBody)
+				: await login(user as UserLoginBody);
+
 			setCurrentUser(res);
 			setIsLoggedIn(true);
+			setRegister(true);
 		} catch (error) {
 			console.error(error);
 		}
@@ -53,8 +56,19 @@ const LoginModal: React.FC = () => {
 	};
 
 	return (
-		<Modal title="Login" open={isOpen} onOk={handleOk} confirmLoading={isConfirmLoading} onCancel={handleCancle} okText={"Login"}>
-			{isRegister ? <RegisterForm form={form} disabled={isDisable} /> : <LoginForm form={form} disabled={isDisable} />}
+		<Modal
+			title="Login"
+			open={isOpen}
+			onOk={handleOk}
+			confirmLoading={isConfirmLoading}
+			onCancel={handleCancle}
+			okText={"Login"}
+		>
+			{isRegister ? (
+				<RegisterForm form={form} disabled={isDisable} />
+			) : (
+				<LoginForm form={form} disabled={isDisable} />
+			)}
 		</Modal>
 	);
 };

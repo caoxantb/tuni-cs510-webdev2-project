@@ -4,6 +4,7 @@ import { isLoggedInAtom, isOpenAtom } from "../states/loginState";
 import { Button } from "../styles/loginmodal";
 import { currentUserAtom, currentUserSelector } from "../states/userState";
 import { useEffect } from "react";
+import { logout } from "../services/user";
 
 const NavBar: React.FC = () => {
 	const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom);
@@ -23,10 +24,13 @@ const NavBar: React.FC = () => {
 
 	const showModal = () => {
 		setOpen(true);
+		// console.log(currentUser);
 	};
 
-	const handleLogout = () => {
+	const handleLogout = async () => {
+		await logout();
 		setCurrentUser(null);
+		// console.log(currentUser);
 		setIsLoggedIn(false);
 	};
 
@@ -37,7 +41,11 @@ const NavBar: React.FC = () => {
 			<MenuItem key="contact">Contact</MenuItem>
 
 			<MenuItem key="login" style={{ marginLeft: "auto" }}>
-				{isLoggedIn ? <Button onClick={handleLogout}>Logout</Button> : <Button onClick={showModal}>Login</Button>}
+				{isLoggedIn ? (
+					<Button onClick={handleLogout}>Logout</Button>
+				) : (
+					<Button onClick={showModal}>Login</Button>
+				)}
 			</MenuItem>
 		</Menu>
 	);

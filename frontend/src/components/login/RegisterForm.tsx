@@ -25,7 +25,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ form, disabled }) => {
 			</Form.Item>
 
 			<Form.Item>
-				<Link onClick={handleClick}>Register</Link>
+				<Link onClick={handleClick}>Login</Link>
 			</Form.Item>
 		</Form>
 	);

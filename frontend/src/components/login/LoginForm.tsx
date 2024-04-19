@@ -21,7 +21,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ form, disabled }) => {
 			</Form.Item>
 
 			<Form.Item>
-				<Link onClick={handleClick}>Login</Link>
+				<Link onClick={handleClick}>Register</Link>
 			</Form.Item>
 		</Form>
 	);
