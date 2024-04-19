@@ -1,67 +1,60 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Modal } from "../../styles/loginmodal";
-import { isModalOpenState, isModalConfirmLoadingState, isFormDisableState } from "../../states/loginState";
-import { Form, Input } from "antd";
-// import { login } from "../../services/user";
+import { isOpenAtom, isLoggedInAtom, isRegisterAtom } from "../../states/loginState";
+import { Form } from "antd";
+import { login } from "../../services/user";
 import { currentUserAtom } from "../../states/userState";
+import LoginForm from "./LoginForm";
+import { useState } from "react";
+import RegisterForm from "./RegisterForm";
 
 const LoginModal: React.FC = () => {
-	const [isModalConfirmLoading, setModalConfirmLoadingState] = useRecoilState(isModalConfirmLoadingState);
-	const [isFormDisable, setFormDisableState] = useRecoilState(isFormDisableState);
-	const [isOpen, setOpenState] = useRecoilState(isModalOpenState);
-	const [form] = Form.useForm();
+	const [isConfirmLoading, setConfirmLoading] = useState(false);
+	const [isDisable, setDisable] = useState(false);
 
-	const setCurrentUserAtom = useSetRecoilState(currentUserAtom);
+	const [isOpen, setOpen] = useRecoilState(isOpenAtom);
+	const isRegister = useRecoilValue(isRegisterAtom);
+	const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
+	const setCurrentUser = useSetRecoilState(currentUserAtom);
+
+	const [form] = Form.useForm();
 
 	const handleCancle = () => {
 		form.resetFields();
-		setOpenState(false);
+		setOpen(false);
 	};
 
 	const handleOk = async () => {
 		form.submit();
 
-		setFormDisableState(true);
-		setModalConfirmLoadingState(true);
+		setDisable(true);
+		setConfirmLoading(true);
 
 		const formValues = form.getFieldsValue();
-		// const user: UserLoginBody = {
-		// 	username: formValues.username,
-		// 	password: formValues.password,
-		// };
-
-		const user: User = {
-			_id: "",
+		const user: UserLoginBody = {
 			username: formValues.username,
-			email: "",
 			password: formValues.password,
-			role: "customer",
 		};
 
 		form.resetFields();
 
 		try {
-			// const res = await login(user);
-			setCurrentUserAtom({ ...user });
+			const res = await login(user);
+			console.log(res);
+			setCurrentUser(res);
+			setIsLoggedIn(true);
 		} catch (error) {
 			console.error(error);
 		}
 
-		setFormDisableState(false);
-		setModalConfirmLoadingState(false);
+		setDisable(false);
+		setConfirmLoading(false);
+		setOpen(false);
 	};
 
 	return (
-		<Modal title="Login" open={isOpen} onOk={handleOk} confirmLoading={isModalConfirmLoading} onCancel={handleCancle} okText={"Login"}>
-			<Form form={form} disabled={isFormDisable}>
-				<Form.Item label="Username" name="username" rules={[{ required: true }]}>
-					<Input />
-				</Form.Item>
-
-				<Form.Item label="Password" name="password" rules={[{ required: true }]}>
-					<Input.Password />
-				</Form.Item>
-			</Form>
+		<Modal title="Login" open={isOpen} onOk={handleOk} confirmLoading={isConfirmLoading} onCancel={handleCancle} okText={"Login"}>
+			{isRegister ? <RegisterForm form={form} disabled={isDisable} /> : <LoginForm form={form} disabled={isDisable} />}
 		</Modal>
 	);
 };

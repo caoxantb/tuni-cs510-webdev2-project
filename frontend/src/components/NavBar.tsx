@@ -1,27 +1,32 @@
-import { useRecoilState, useRecoilValueLoadable } from "recoil";
+import { useRecoilState, useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { Menu, MenuItem } from "../styles/navbar";
-import { isLoggedInState, isModalOpenState } from "../states/loginState";
+import { isLoggedInAtom, isOpenAtom } from "../states/loginState";
 import { Button } from "../styles/loginmodal";
-import { currentUserSelector } from "../states/userState";
+import { currentUserAtom, currentUserSelector } from "../states/userState";
 import { useEffect } from "react";
 
 const NavBar: React.FC = () => {
-	const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-	const [, setOpenState] = useRecoilState(isModalOpenState);
+	const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom);
+	const [, setOpen] = useRecoilState(isOpenAtom);
+	const setCurrentUser = useSetRecoilState(currentUserAtom);
 	const currentUser = useRecoilValueLoadable(currentUserSelector);
 
 	useEffect(() => {
-		if (currentUser.state === "hasValue" && currentUser.contents !== null) {
-			setIsLoggedIn(true);
+		if (currentUser.state === "hasValue") {
+			if (currentUser.contents == null) {
+				setIsLoggedIn(false);
+			} else {
+				setIsLoggedIn(true);
+			}
 		}
 	}, [currentUser, setIsLoggedIn]);
 
 	const showModal = () => {
-		console.log(currentUser.contents.toString());
-		setOpenState(true);
+		setOpen(true);
 	};
 
 	const handleLogout = () => {
+		setCurrentUser(null);
 		setIsLoggedIn(false);
 	};
 

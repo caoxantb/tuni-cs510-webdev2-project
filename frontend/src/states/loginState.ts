@@ -1,21 +1,26 @@
 import { RecoilState, atom } from "recoil";
 
-export const isLoggedInState: RecoilState<boolean> = atom<boolean>({
-	key: "isLoggedInState",
+export const isLoggedInAtom: RecoilState<boolean> = atom<boolean>({
+	key: "isLoggedInAtom",
 	default: false,
 });
 
-export const isModalOpenState: RecoilState<boolean> = atom<boolean>({
-	key: "isModalOpenState",
+export const isOpenAtom: RecoilState<boolean> = atom<boolean>({
+	key: "isOpenAtom",
 	default: false,
 });
 
-export const isModalConfirmLoadingState: RecoilState<boolean> = atom<boolean>({
-	key: "isModalConfirmLoadingState",
+export const isConfirmLoadingAtom: RecoilState<boolean> = atom<boolean>({
+	key: "isConfirmLoadingAtom",
 	default: false,
 });
 
-export const isFormDisableState: RecoilState<boolean> = atom<boolean>({
-	key: "isFormDisableState",
+export const isDisableAtom: RecoilState<boolean> = atom<boolean>({
+	key: "isDisableAtom",
+	default: false,
+});
+
+export const isRegisterAtom: RecoilState<boolean> = atom<boolean>({
+	key: "isRegisterAtom",
 	default: false,
 });

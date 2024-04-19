@@ -53,3 +53,13 @@ type Topping = {
 };
 
 type ToppingType = "meat" | "veggies" | "cheese" | "sauce";
+
+type LoginFormProps = {
+	form: FormInstance<any>;
+	disabled: boolean;
+};
+
+type RegisterFormProps = {
+	form: FormInstance<any>;
+	disabled: boolean;
+};
