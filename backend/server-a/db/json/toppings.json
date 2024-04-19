@@ -6,11 +6,17 @@
     "image": "/toppings/heo-quay.png"
   },
   {
+    "name": "Kebab",
+    "price": 2.0,
+    "type": "meat",
+    "image": "/toppings/kebab.png"
+  },
+  {
     "name": "Vietnamese Ham (Chả Lụa)",
     "price": 1.5,
     "type": "meat",
     "image": "/toppings/cha-lua.png"
-  }, 
+  },
   {
     "name": "Sausage",
     "price": 1.5,
@@ -52,13 +58,19 @@
     "price": 0.6,
     "type": "veggies",
     "image": "/toppings/rau-mui.png"
-  },    
+  },
+  {
+    "name": "Kimchi",
+    "price": 0.6,
+    "type": "veggies",
+    "image": "/toppings/kimchi.png"
+  },
   {
     "name": "Red Cabbage",
     "price": 0.6,
     "type": "veggies",
     "image": "/toppings/bap-cai-tim.png"
-  },    
+  },
   {
     "name": "Cheddar",
     "price": 0.8,
@@ -66,10 +78,10 @@
     "image": "/toppings/cheddar.png"
   },
   {
-    "name": "Mozarella",
+    "name": "Mozzarella",
     "price": 0.8,
     "type": "cheese",
-    "image": "/toppings/mozarella.png"
+    "image": "/toppings/mozzarella.png"
   },
   {
     "name": "Pepper Jack",
@@ -82,6 +94,12 @@
     "price": 1.2,
     "type": "cheese",
     "image": "/toppings/con-bo-cuoi.png"
+  },
+  {
+    "name": "Parmesan",
+    "price": 1.2,
+    "type": "cheese",
+    "image": "/toppings/parmesan.png"
   },
   {
     "name": "Provolone",
@@ -106,7 +124,13 @@
     "price": 0.4,
     "type": "sauce",
     "image": "/toppings/mu-tat.png"
-  },    
+  },
+  {
+    "name": "Curry Sauce",
+    "price": 0.6,
+    "type": "sauce",
+    "image": "/toppings/sot-cari.png"
+  },
   {
     "name": "Oyster Sauce",
     "price": 0.6,

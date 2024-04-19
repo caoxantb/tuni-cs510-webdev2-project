@@ -4,42 +4,42 @@
     "price": 8,
     "image": "/sandwiches/banh-mi-pho-co.png",
     "description": "Hanoi's Old Quarter Banh Mi stands as a beacon of tradition amidst the bustling streets of the city. This iconic dish embodies the essence of Hanoi's culinary heritage, offering a taste of authenticity with each bite. Experience the tantalizing crunch and generous filling of meat, pâté, sausage, egg, pickles, and fresh herbs, all enveloped within a perfectly toasted crust. The aromatic pâté lends a delightful fragrance, while the meticulously selected meat strikes a harmonious balance of flavors—rich, yet not overwhelming, making it a must-try for anyone seeking the quintessential flavors of Hanoi's bustling streets.",
-    "originCity": "Ha Noi"
+    "originCity": "Hà Nội"
   },
   {
     "name": "Outlaw Banh Mi (Bánh Mì Dân Tổ)",
     "price": 9,
     "image": "/sandwiches/banh-mi-dan-to.png",
     "description": "Step into the realm of Hanoi's Outlaw Banh Mi, where flavors converge in a symphony of taste. Sizzling on the pan are onions, eggs, pâté, sausages, meatballs, Chinese sausage, dried beef, and butter, melding into a luscious, moist filling. Balanced by fresh herbs and pickles, this outlaw-inspired creation offers a harmonious blend of Hanoi's distinctive flavors. Its name pays homage to the midnight outlaws, evoking the thrill of racing under the moonlight on the outskirts of Hanoi.",
-    "originCity": "Ha Noi"
+    "originCity": "Hà Nội"
   },
   {
     "name": "Spicy Flamboyant Banh Mi (Bánh Mì Cay Hải Phòng)",
     "price": 8,
     "image": "/sandwiches/banh-mi-cay-hai-phong.png",
     "description": "Spicy Baguette is a testament to Hai Phong's culinary tradition. Imagine biting into a crusty baguette, sized like two or three fingers, with a crispy exterior and a light, fluffy interior, and discover layers of savory pork liver pâté and succulent grilled pork, all drenched in a fiery chili sauce or rich butter. Each baguette is carefully grilled over charcoal, then brushed with fragrant oil, ensuring every bite delivers a satisfying crunch and a burst of bold flavors—a true culinary delight found only in the energetic city of the Flamboyant Flower.",
-    "originCity": "Hai Phong"
+    "originCity": "Hải Phòng"
   },
   {
     "name": "Tapioca Dumpling Banh Mi (Bánh Mì Bột Lọc)",
     "price": 9,
     "image": "/sandwiches/banh-mi-bot-loc.png",
     "description": "Hue's Fusion Banh Mi pays homage to the rich culinary legacy of Hue and Vietnam's beloved Banh Mi. Grilled over charcoal, the warm, crispy baguette harmonizes flawlessly with soft, fragrant tapioca dumplings. With each bite, you'll discover a tantalizing filling of shrimp and pork, heightened by the freshness of aromatic herbs, fiery chili, and a delicate drizzle of fish sauce, culminating in an unforgettable symphony of flavors and textures, emblematic of Central Vietnam's culinary tradition.",
-    "originCity": "Hue"
+    "originCity": "Huế"
   },
   {
     "name": "Ancient Town Banh Mi (Bánh Mì Phượng Hội An)",
     "price": 10,
     "image": "/sandwiches/banh-mi-phuong.png",
     "description": "Phuong's Banh Mi, revered by chef Anthony Bourdain, epitomizes Hoi An's culinary excellence. Crafted with a secret sauce and premium ingredients like decadent pork liver pâté and savory minced meat, each bite is a symphony of tradition and flavor. Baked fresh on-site with pure French flour and authentic yeast, it's a culinary masterpiece that invites you to indulge in the rich history and vibrant flavors of ancient Hoi An with every savory bite.",
-    "originCity": "Hoi An"
+    "originCity": "Hội An"
   },
   {
     "name": "Meatballs Banh Mi (Bánh Mì Xíu Mại)",
     "price": 10,
     "image": "/sandwiches/banh-mi-xiu-mai.png",
     "description": "Da Lat's Meatball Banh Mi isn't simply sustenance—it's a morning ritual, a symphony of flavors that envelops you. A freshly baked baguette, generously stuffed with succulent meatballs bathed in a flavorful broth, where each bite melds tender meatballs with a medley of crisp vegetables, fragrant herbs, and a subtle hint of spice, perfectly captures the essence of Da Lat's culinary heritage amidst the misty mornings of this enchanting city.",
-    "originCity": "Da Lat"
+    "originCity": "Đà Lạt"
   },
   {
     "name": "Seaside Banh Mi (Bánh Mì Chả Cá)",
@@ -53,20 +53,20 @@
     "price": 12,
     "image": "/sandwiches/banh-mi-bo-ne.png",
     "description": "Saigon's Dodging Sizzling Beef Banh Mi is a breakfast delight that originated from the vibrant streets of Saigon. Tender beef, meatballs, and pâté combine with premium eggs, fresh vegetables, and herbs, providing a rich source of protein, vitamins, and minerals. Served sizzling on a hot plate, where the splashing oil makes you dodge, the succulent beef pairs perfectly with rich gravy, golden fried eggs, and crispy potatoes. Enjoy with a dipping sauce of tomato, chili, soy sauce, and pepper, experiencing the irresistible sizzle and flavor that \"bò né (dodging)\" embodies.",
-    "originCity": "Sai Gon"
+    "originCity": "Sài Gòn"
   },
   {
     "name": "Mixed Offal Banh Mi (Bánh Mì Phá Lấu)",
     "price": 12,
     "image": "/sandwiches/banh-mi-pha-lau.png",
     "description": "Saigon's Offal Banh Mi is a culinary ode to the rich tapestry of flavors woven by the Teochew people's traditional cuisine. A harmonious blend of tender pork offal—intestines, ears, stomach, liver, and kidneys—simmered to perfection in a luxurious coconut broth, infusing each morsel with layers of savory depth. Accompanied by a vibrant medley of pickled vegetables, crisp fresh herbs, succulent tomatoes, and tangy sour cabbage, every bite is a sensory expedition through Saigon's storied culinary heritage.",
-    "originCity": "Sai Gon"
+    "originCity": "Sài Gòn"
   },
   {
     "name": "Underworld Banh Mi (Bánh Mì Âm Phủ)",
     "price": 9,
     "image": "/sandwiches/banh-mi-am-phu.png",
     "description": "Immerse yourself in the flavors of the Mekong Delta with our Underworld Banh Mi. Featuring a rich blend of regional ingredients like grilled meat, char siu, cold cuts, pork skin, meatballs, scallion oil, pickled vegetables, and fish sauce—a unique combination that defines the renowned banh mi of Can Tho. It is known for its night-only availability, echoing the mystique of nocturnal traditions in Vietnamese culture, hence the name \"âm phủ (underworld)\".",
-    "originCity": "Can Tho"
+    "originCity": "Cần Thơ"
   }
 ]
