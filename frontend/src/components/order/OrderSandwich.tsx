@@ -10,12 +10,10 @@ import {
   currentOrderAtom,
   currentOrderSandwichSelector,
 } from "../../states/orderState";
-import { Card } from "antd";
+import { Card, Image } from "antd";
 import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
-
-const { Meta } = Card;
 
 const OrderSandwich: React.FC = () => {
   const setSandwichState = useSetRecoilState(sandwichAtom);
@@ -29,9 +27,23 @@ const OrderSandwich: React.FC = () => {
     }
   }, []);
 
+  const addSandwichToOrder = (sandwich: Sandwich) => {
+    setCurrentOrder({
+      ...currentOrder,
+      sandwichId: sandwich._id,
+    });
+  };
+
+  const removeSandwichFromOrder = () => {
+    setCurrentOrder({
+      ...currentOrder,
+      sandwichId: "",
+    });
+  };
+
   return (
     sandwiches.state === "hasValue" && (
-      <div style={{ textAlign: "center", padding: "0 10%" }}>
+      <StyledOrderSandwichWrapper>
         <h1>CHOOSE A BANH-MI</h1>
         {currentSandwich && (
           <>
@@ -39,64 +51,34 @@ const OrderSandwich: React.FC = () => {
             <p>- {currentSandwich.name}</p>
           </>
         )}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, calc((100% - 40px)/2))",
-            gap: "40px",
-            margin: "40px 0",
-          }}
-        >
+        <div className="grid-container">
           {sandwiches.contents.map((sandwich: Sandwich) => (
             <Card
               key={sandwich._id}
               hoverable={true}
               cover={
-                <img
+                <StyledCardCoverImage
                   alt={sandwich.name}
                   src={`/images${sandwich.image}`}
-                  style={{ width: "100%", height: "480px", objectFit: "cover" }}
                 />
               }
               actions={[
                 sandwich._id !== currentOrder?.sandwichId ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: "8px",
-                    }}
-                    onClick={() =>
-                      setCurrentOrder({
-                        ...currentOrder,
-                        sandwichId: sandwich._id,
-                      })
-                    }
+                  <StyledCardAction
+                    onClick={() => addSandwichToOrder(sandwich)}
                   >
                     <PlusCircleOutlined />
                     <span>Add to Order</span>
-                  </div>
+                  </StyledCardAction>
                 ) : (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: "8px",
-                    }}
-                    onClick={() =>
-                      setCurrentOrder({
-                        ...currentOrder,
-                        sandwichId: "",
-                      })
-                    }
-                  >
+                  <StyledCardAction onClick={removeSandwichFromOrder}>
                     <MinusCircleOutlined />
                     <span>Remove from Order</span>
-                  </div>
+                  </StyledCardAction>
                 ),
               ]}
             >
-              <StyledMeta
+              <StyledCardMeta
                 title={
                   <>
                     {sandwich.name} - {sandwich.price}
@@ -107,16 +89,40 @@ const OrderSandwich: React.FC = () => {
             </Card>
           ))}
         </div>
-      </div>
+      </StyledOrderSandwichWrapper>
     )
   );
 };
 
-const StyledMeta = styled(Meta)`
+const StyledOrderSandwichWrapper = styled.div`
+  text-align: center;
+  padding: 0 10%;
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, calc((100% - 40px) / 2));
+    gap: 40px;
+    margin: 40px 0;
+  }
+`;
+
+const StyledCardCoverImage = styled(Image)`
+  width: 100% !important;
+  height: 480px !important;
+  object-fit: cover;
+`;
+
+const StyledCardAction = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+`;
+
+const StyledCardMeta = styled(Card.Meta)`
   height: 160px;
 
-  & > .ant-card-meta-detail {
-    overflow: scroll !important;
+  .ant-card-meta-detail {
+    overflow: scroll;
   }
 `;
 

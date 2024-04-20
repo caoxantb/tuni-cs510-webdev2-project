@@ -10,9 +10,11 @@ import {
   currentOrderAtom,
   currentOrderToppingSelector,
 } from "../../states/orderState";
-import { Card } from "antd";
+import { Card, Image } from "antd";
 import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { getToppingTypes } from "../../helpers/sandwich-utils";
+
+import styled from "@emotion/styled";
 
 const { Meta } = Card;
 
@@ -28,83 +30,63 @@ const OrderToppings: React.FC = () => {
     }
   }, []);
 
+  const addToppingToOrder = (topping: Topping) => {
+    setCurrentOrder({
+      ...currentOrder,
+      toppings: [...currentOrder.toppings, topping._id],
+    });
+  };
+
+  const removeToppingFromOrder = (topping: Topping) => {
+    setCurrentOrder({
+      ...currentOrder,
+      toppings: currentOrder.toppings.filter(t => t !== topping._id),
+    });
+  };
+
   return (
     toppings.state === "hasValue" && (
-      <div style={{ textAlign: "center", padding: "0 10%" }}>
+      <StyledOrderToppingWrapper>
         <h1>CHOOSE TOPPINGS</h1>
         {!!currentToppings.length && (
           <>
             <strong>Current selection:</strong>
-            {currentToppings.map((topping) => (
+            {currentToppings.map(topping => (
               <p key={topping._id}>- {topping.name}</p>
             ))}
           </>
         )}
-        {getToppingTypes(toppings.contents).map((type) => (
+        {getToppingTypes(toppings.contents).map(type => (
           <div key={type}>
             <h2>{type.toUpperCase()}</h2>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, calc((100% - 40px)/3))",
-                gap: "40px",
-                margin: "40px 0",
-              }}
-            >
+            <div className="grid-container">
               {toppings.contents
-                .filter((topping) => topping.type === type)
-                .map((topping) => (
+                .filter(topping => topping.type === type)
+                .map(topping => (
                   <Card
                     key={topping._id}
                     hoverable={true}
                     actions={[
                       !currentOrder.toppings.includes(topping._id) ? (
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            gap: "8px",
-                          }}
-                          onClick={() =>
-                            setCurrentOrder({
-                              ...currentOrder,
-                              toppings: [...currentOrder.toppings, topping._id],
-                            })
-                          }
+                        <StyledCardAction
+                          onClick={() => addToppingToOrder(topping)}
                         >
                           <PlusCircleOutlined />
                           <span>Add to Order</span>
-                        </div>
+                        </StyledCardAction>
                       ) : (
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            gap: "8px",
-                          }}
-                          onClick={() =>
-                            setCurrentOrder({
-                              ...currentOrder,
-                              toppings: currentOrder.toppings.filter(
-                                (t) => t !== topping._id
-                              ),
-                            })
-                          }
+                        <StyledCardAction
+                          onClick={() => removeToppingFromOrder(topping)}
                         >
                           <MinusCircleOutlined />
                           <span>Remove from Order</span>
-                        </div>
+                        </StyledCardAction>
                       ),
                     ]}
                     cover={
-                      <img
+                      <StyledCardCoverImage
                         alt={topping.name}
                         src={`/images${topping.image}`}
-                        style={{
-                          width: "100%",
-                          height: "240px",
-                          objectFit: "cover",
-                        }}
                       />
                     }
                   >
@@ -120,9 +102,33 @@ const OrderToppings: React.FC = () => {
             </div>
           </div>
         ))}
-      </div>
+      </StyledOrderToppingWrapper>
     )
   );
 };
+
+const StyledOrderToppingWrapper = styled.div`
+  text-align: center;
+  padding: 0 10%;
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, calc((100% - 40px) / 3));
+    gap: 40px;
+    margin: 40px 0;
+  }
+`;
+
+const StyledCardCoverImage = styled(Image)`
+  width: 100% !important;
+  height: 240px !important;
+  object-fit: cover;
+`;
+
+const StyledCardAction = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+`;
 
 export default OrderToppings;

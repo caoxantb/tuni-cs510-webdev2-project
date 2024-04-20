@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
 import { useRecoilValueLoadable } from "recoil";
 import { currentUserSelector } from "../states/userState";
+import styled from "@emotion/styled";
 
 const Navbar: React.FC = () => {
   const currentUser = useRecoilValueLoadable(currentUserSelector);
@@ -29,11 +30,19 @@ const Navbar: React.FC = () => {
       children: [
         {
           key: "all-orders",
-          label: <Link to={`/user/${currentUser.contents?._id}/order`}>View your orders</Link>,
+          label: (
+            <Link to={`/user/${currentUser.contents?._id}/order`}>
+              View your orders
+            </Link>
+          ),
         },
         {
           key: "update-user",
-          label: <Link to={`/user/${currentUser.contents?._id}/update`}>Update your info</Link>,
+          label: (
+            <Link to={`/user/${currentUser.contents?._id}/update`}>
+              Update your info
+            </Link>
+          ),
         },
         {
           type: "divider",
@@ -47,13 +56,10 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <Layout.Header style={{ display: "flex", justifyContent: "space-between" }}>
-      <div style={{ display: "flex" }}>
+    <StyledNavbar>
+      <div className="navigation-bar">
         <Link to="/">
-          <img
-            style={{ height: "calc(100% - 20px)", padding: "10px" }}
-            src="/logo.svg"
-          />
+          <img className="logo" src="/logo.svg" />
         </Link>
         <Menu
           theme="dark"
@@ -74,8 +80,22 @@ const Navbar: React.FC = () => {
         disabledOverflow
         selectable={false}
       />
-    </Layout.Header>
+    </StyledNavbar>
   );
 };
+
+const StyledNavbar = styled(Layout.Header)`
+  display: flex;
+  justify-content: space-between;
+
+  .navigation-bar {
+    display: flex;
+  }
+
+  .logo {
+    height: calc(100% - 20px);
+    padding: 10px;
+  }
+`;
 
 export default Navbar;

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { sandwichAtom, sandwichSelector } from "../../states/sandwichState";
 import { parseSandwichName } from "../../helpers/sandwich-utils";
+import styled from "@emotion/styled";
 
 const SandwichMenu: React.FC = () => {
   const setSandwichState = useSetRecoilState(sandwichAtom);
@@ -14,27 +15,48 @@ const SandwichMenu: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ width: "50%", textAlign: "center" }}>
+    <StyledSandwichMenuWrapper>
       {sandwiches.contents.map((sandwich: Sandwich) => {
         const { name, vietnameseName } = parseSandwichName(sandwich.name);
 
         return (
-          <div key={sandwich._id} style={{ margin: "24px" }}>
-            <h3 style={{ margin: "8px" }}>
+          <StyledSandwichDiv key={sandwich._id}>
+            <h3>
               {name.toUpperCase()} - {sandwich.price}
             </h3>
-            <h4 style={{ margin: "8px" }}>{vietnameseName}</h4>
-            <p style={{ margin: "8px 0 24px 0" }}>{sandwich.originCity}</p>
-            <img
-              style={{ width: "8%" }}
-              src="/horizontal-divider.svg"
-              alt="SVG Image"
-            />
-          </div>
+            <h4>{vietnameseName}</h4>
+            <p>{sandwich.originCity}</p>
+            <img src="/horizontal-divider.svg" alt="SVG Image" />
+          </StyledSandwichDiv>
         );
       })}
-    </div>
+    </StyledSandwichMenuWrapper>
   );
 };
+
+const StyledSandwichMenuWrapper = styled.div`
+  width: 50%;
+  text-align: center;
+`;
+
+const StyledSandwichDiv = styled.div`
+  margin: 24px;
+
+  h3 {
+    margin: 8px;
+  }
+
+  h4 {
+    margin: 8px;
+  }
+
+  p {
+    margin: 8px 0 24px 0;
+  }
+
+  img {
+    width: 8%;
+  }
+`;
 
 export default SandwichMenu;

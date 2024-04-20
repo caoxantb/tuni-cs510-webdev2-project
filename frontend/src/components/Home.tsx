@@ -1,20 +1,9 @@
-import { Carousel, Button } from "antd";
-import { Link } from "react-router-dom";
 import React, { ReactNode } from "react";
+import { Link } from "react-router-dom";
+import { Carousel, Button } from "antd";
+import styled from "@emotion/styled";
 
 const Home: React.FC = () => {
-  const contentStyle: React.CSSProperties = {
-    display: "flex",
-    height: "100%",
-    minHeight: "100vh",
-    alignItems: "center",
-    textAlign: "center",
-    justifyContent: "center",
-    fontSize: "60px",
-    color: "#f5f5f5",
-    flexDirection: "column",
-  };
-
   const carouselSlides: { text: string; children?: ReactNode }[] = [
     { text: "Craving for that simple taste of a Banh Mi?" },
     { text: "Seeking those familiar flavors of good ol' memories?" },
@@ -26,16 +15,10 @@ const Home: React.FC = () => {
       text: "Join us for a journey through Vietnam's culinary tapestry, where bold flavors redefine tradition.",
       children: (
         <div>
-          <Button
-            ghost
-            style={{ margin: "10px", fontSize: "28px", height: "auto" }}
-          >
+          <Button ghost>
             <Link to="/sandwiches">View Menu</Link>
           </Button>
-          <Button
-            ghost
-            style={{ margin: "10px", fontSize: "28px", height: "auto" }}
-          >
+          <Button ghost>
             <Link to="/order">Order Here</Link>
           </Button>
         </div>
@@ -44,13 +27,7 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <div
-      style={{
-        background:
-          "linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url(https://images.squarespace-cdn.com/content/v1/6018fa5163f068434d5dc5d1/1612690759381-UX9W43NGVSFCJDFFTHNL/Bahn+Mi+thumbnail.jpg) no-repeat center center fixed",
-        backgroundSize: "cover",
-      }}
-    >
+    <StyledHomeWrapper>
       <Carousel
         pauseOnHover={false}
         effect="fade"
@@ -62,15 +39,39 @@ const Home: React.FC = () => {
       >
         {carouselSlides.map((slide, idx) => (
           <div key={`slide-${idx}`}>
-            <div style={contentStyle}>
+            <StyledHomeSlide>
               {slide.text}
               {slide.children}
-            </div>
+            </StyledHomeSlide>
           </div>
         ))}
       </Carousel>
-    </div>
+    </StyledHomeWrapper>
   );
 };
+
+const StyledHomeWrapper = styled.div`
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(/images/home.png) no-repeat center center fixed;
+  background-size: cover;
+`;
+
+const StyledHomeSlide = styled.div`
+  display: flex;
+  height: 100%;
+  min-height: 100vh;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 60px;
+  color: #f5f5f5;
+  flex-direction: column;
+
+  button {
+    margin: 10px;
+    font-size: 28px;
+    height: auto;
+  }
+`;
 
 export default Home;

@@ -6,6 +6,8 @@ import SandwichMenu from "./SandwichMenu";
 import SandwichMap from "./SandwichMap";
 import SandwichSlider from "./SandwichSlider";
 
+import styled from "@emotion/styled";
+
 const SandwichList: React.FC = () => {
   const setSandwichState = useSetRecoilState(sandwichAtom);
   const sandwiches = useRecoilValueLoadable(sandwichSelector);
@@ -20,41 +22,54 @@ const SandwichList: React.FC = () => {
     sandwiches.state === "hasValue" && (
       <>
         <SandwichSlider />
-        <div
-          style={{
-            textAlign: "center",
-            fontSize: "40px",
-            color: "black",
-            marginTop: "60px",
-            padding: "0 10%",
-          }}
-        >
-          <img style={{ width: "100%" }} src="/big-divider-cropped.svg" />
-          <h1 style={{ margin: "8px" }}>MENU</h1>
-          <p
-            style={{ fontSize: "20px", fontStyle: "italic", padding: "0 25%" }}
-          >
+        <StyledSandwichMetaHeader>
+          <img src="/big-divider-cropped.svg" />
+          <h1>MENU</h1>
+          <p>
             My love affair with Vietnamese cuisine began in my childhood, and to
             this day, it remains a journey of discovery, a tapestry of tastes,
             and an endless inspiration for culinary creativity." <br /> - Luke
             Nguyen
           </p>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            padding: "0 10%",
-            margin: "20px",
-            gap: "20px",
-            color: "black",
-          }}
-        >
+        </StyledSandwichMetaHeader>
+        <StyledSandwichMeta>
           <SandwichMenu />
           <SandwichMap />
-        </div>
+        </StyledSandwichMeta>
       </>
     )
   );
 };
+
+const StyledSandwichMetaHeader = styled.div`
+  text-align: center;
+  font-size: 40px;
+  color: black;
+  margin-top: 60px;
+  padding: 0 10%;
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin: 8px;
+  }
+
+  p {
+    font-size: 20px;
+    font-style: italic;
+    padding: 0 25%;
+    margin: 8px 0 16px 0;
+  }
+`;
+
+const StyledSandwichMeta = styled.div`
+  display: flex;
+  padding: 0 10%;
+  margin: 20px;
+  gap: 20px;
+  color: black;
+`;
 
 export default SandwichList;
