@@ -1,19 +1,22 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import LoginModal from "./components/login/LoginModal";
+
+import NavigationBar from "./components/NavigationBar";
+import LoginModal from "./components/auth/AuthModal";
+import Home from "./components/Home";
+import SandwichList from "./components/sandwich/SandwichList";
+import OrderPage from "./components/order/OrderPage";
 
 const App: React.FC = () => {
-	return (
-		<>
-			<NavBar />
-			<LoginModal />
-			<Routes>
-				{/* <Route path="/" element={<Home />} />
-      <Route path="/sandwiches/" element={<SandwichList />} />
-      <Route path="/sandwiches/:sandwichId" element={<SandwichItem />} />
-      <Route path="/order/" element={<OrderCreator />} />
-      <Route path="/order/all" element={<OrderList />} />
+  return (
+    <>
+      <NavigationBar />
+      <LoginModal />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sandwiches/" element={<SandwichList />} />
+        <Route path="/order/" element={<OrderPage />} />
+        {/* <Route path="/order/all" element={<OrderList />} />
       <Route path="/user/:userId/order" element={<OrderList />} />
       <Route path="/user/:userId/update" element={<User />} /> */}
 			</Routes>

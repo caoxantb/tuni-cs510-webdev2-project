@@ -3,17 +3,21 @@ import axios from "axios";
 const BASE_URL = "http://localhost:8080/api/v1/user";
 
 export const register = async (data: UserRegisterBody): Promise<User> => {
-  const res = await axios.post(`${BASE_URL}/register`, data);
+  const res = await axios.post(`${BASE_URL}/register`, data, {
+    withCredentials: true,
+  });
   return res.data;
 };
 
 export const login = async (data: UserLoginBody): Promise<User> => {
-  const res = await axios.post(`${BASE_URL}/login`, data);
+  const res = await axios.post(`${BASE_URL}/login`, data, {
+    withCredentials: true,
+  });
   return res.data;
 };
 
 export const logout = async () => {
-  await axios.post(`${BASE_URL}/logout`, { withCredentials: true });
+  await axios.post(`${BASE_URL}/logout`, {}, { withCredentials: true });
 };
 
 export const getCurrentUser = async (): Promise<User> => {
@@ -30,7 +34,7 @@ export const getUserByUsername = async (username: string): Promise<User> => {
 
 export const updateUser = async (
   userId: string,
-  data: UserBody
+  data: UserBody,
 ): Promise<User> => {
   const res = await axios.put(`${BASE_URL}/${userId}`, data, {
     withCredentials: true,

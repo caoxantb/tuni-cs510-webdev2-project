@@ -1,6 +1,7 @@
 import { RecoilState, atom, selector } from "recoil";
 import { sandwichSelector } from "./sandwichState";
 import { toppingSelector } from "./toppingState";
+import { parseIntRound } from "../helpers/data-format-utils";
 
 export const currentOrderAtom: RecoilState<OrderBody> = atom<OrderBody>({
   key: "currentOrderAtom",
@@ -20,7 +21,7 @@ export const currentOrderSandwichSelector = selector({
     const sandwichId = currentOrder ? currentOrder.sandwichId : null;
     if (!sandwichId) return null;
     const sandwiches = get(sandwichSelector);
-    return sandwiches.find((s) => s._id === sandwichId);
+    return sandwiches.find(s => s._id === sandwichId);
   },
 });
 
@@ -31,7 +32,7 @@ export const currentOrderToppingSelector = selector({
     const orderToppings = currentOrder ? currentOrder.toppings : [];
     if (!orderToppings.length) return [];
     const toppings = get(toppingSelector);
-    return toppings.filter((t) => orderToppings.includes(t._id));
+    return toppings.filter(t => orderToppings.includes(t._id));
   },
 });
 
@@ -46,6 +47,6 @@ export const currentOrderPriceSelector = selector({
     const toppings = get(currentOrderToppingSelector);
     price = toppings.reduce((acc, t) => acc + t.price, price);
 
-    return price;
+    return parseIntRound(price);
   },
 });
