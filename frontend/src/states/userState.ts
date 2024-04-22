@@ -14,7 +14,6 @@ export const currentUserSelector = selector({
       return cachedCurrentUserState;
     }
     const currentUser = await getCurrentUser();
-    console.log(currentUser);
     return currentUser;
   },
 });

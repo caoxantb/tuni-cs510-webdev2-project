@@ -31,7 +31,7 @@ const SandwichMap: React.FC = () => {
           <Marker key={city.name} position={[city.lat, city.lon]}>
             <Popup>
               {city.sandwiches.map(sandwich => (
-                <div>
+                <div key={sandwich._id}>
                   <img
                     src={`/images${sandwich.image}`}
                     width="100%"

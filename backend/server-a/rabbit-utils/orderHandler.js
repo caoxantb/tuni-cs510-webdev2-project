@@ -12,7 +12,8 @@ export const orderHandler = async (order, action) => {
       await Order.findByIdAndUpdate(order._id, { status: "failed" });
       break;
     case "done":
-      await Order.findByIdAndUpdate(order._id, { status: "ready" });
+      const orderParsed = JSON.parse(order);
+      await Order.findByIdAndUpdate(orderParsed._id, { status: "ready" });
       break;
     default:
       console.error("Action not found");

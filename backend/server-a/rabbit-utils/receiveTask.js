@@ -25,14 +25,14 @@ export const getTask = function (rabbitHost, queueName) {
         });
         return ok;
 
-        function doWork(msg) {
+        async function doWork(msg) {
           var body = msg.content.toString();
           console.log(" [x] Received '%s'", body);
+          await orderHandler(JSON.parse(body), "done");
           setTimeout(function () {
-            orderHandler(JSON.parse(body), "done");
             console.log(" [x] Done");
             ch.ack(msg);
-          }, 1000);
+          }, 5000);
         }
       });
     })

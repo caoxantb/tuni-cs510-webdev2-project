@@ -16,7 +16,7 @@ const SandwichMenu: React.FC = () => {
 
   return (
     <StyledSandwichMenuWrapper>
-      {sandwiches.contents.map((sandwich: Sandwich) => {
+      {sandwiches.contents.map((sandwich: Sandwich, idx: number) => {
         const { name, vietnameseName } = parseSandwichName(sandwich.name);
 
         return (
@@ -26,7 +26,9 @@ const SandwichMenu: React.FC = () => {
             </h3>
             <h4>{vietnameseName}</h4>
             <p>{sandwich.originCity}</p>
-            <img src="/horizontal-divider.svg" alt="SVG Image" />
+            {idx !== sandwiches.contents.length - 1 && (
+              <img src="/horizontal-divider.svg" alt="SVG Image" />
+            )}
           </StyledSandwichDiv>
         );
       })}

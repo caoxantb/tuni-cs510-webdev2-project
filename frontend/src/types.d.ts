@@ -58,3 +58,5 @@ type AuthFormProps = {
   form: FormInstance;
   disabled: boolean;
 };
+
+type OrderTabKey = "banh-mi" | "toppings" | "finalize-order";

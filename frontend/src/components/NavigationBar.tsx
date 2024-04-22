@@ -1,15 +1,7 @@
-// import React from "react";
-// import { Layout, Menu, MenuProps, Avatar } from "antd";
-// import { Link } from "react-router-dom";
-// import { UserOutlined } from "@ant-design/icons";
-// import { useRecoilValueLoadable } from "recoil";
-// import { currentUserSelector } from "../states/userState";
-// import styled from "@emotion/styled";
-
 import React from "react";
-import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import { modalOpenAtom } from "../states/authModalState";
-import { currentUserAtom, currentUserSelector } from "../states/userState";
+import { currentUserAtom } from "../states/userState";
 import { logout } from "../services/user";
 
 import { Layout, Menu, MenuProps, Avatar } from "antd";
@@ -20,8 +12,7 @@ import styled from "@emotion/styled";
 
 const NavigationBar: React.FC = () => {
   const setModalOpen = useSetRecoilState(modalOpenAtom);
-  const setCurrentUser = useSetRecoilState(currentUserAtom);
-  const currentUser = useRecoilValueLoadable(currentUserSelector);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
 
   const handleLogout = async () => {
     await logout();
@@ -47,24 +38,20 @@ const NavigationBar: React.FC = () => {
       label: (
         <>
           <Avatar size="large" icon={<UserOutlined />} />
-          <span style={{ marginLeft: "8px" }}>
-            {currentUser.contents?.username}
-          </span>
+          <span style={{ marginLeft: "8px" }}>{currentUser?.username}</span>
         </>
       ),
       children: [
         {
           key: "all-orders",
           label: (
-            <Link to={`/user/${currentUser.contents?._id}/order`}>
-              View your orders
-            </Link>
+            <Link to={`/user/${currentUser?._id}/order`}>View your orders</Link>
           ),
         },
         {
           key: "update-user",
           label: (
-            <Link to={`/user/${currentUser.contents?._id}/update`}>
+            <Link to={`/user/${currentUser?._id}/update`}>
               Update your info
             </Link>
           ),
@@ -98,11 +85,7 @@ const NavigationBar: React.FC = () => {
       <Menu
         theme="dark"
         mode="horizontal"
-        items={
-          currentUser.state === "hasValue" && currentUser.contents
-            ? userItems
-            : loginItem
-        }
+        items={currentUser ? userItems : loginItem}
         disabledOverflow
         selectable={false}
       />
