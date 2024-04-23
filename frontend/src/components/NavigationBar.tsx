@@ -45,7 +45,7 @@ const NavigationBar: React.FC = () => {
         {
           key: "all-orders",
           label: (
-            <Link to={`/user/${currentUser?._id}/order`}>View your orders</Link>
+            <Link to={`/user/${currentUser?._id}/orders`}>View your orders</Link>
           ),
         },
         {

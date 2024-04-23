@@ -32,9 +32,9 @@ export const getCities = (sandwichesList: Sandwich[]) => {
     sandwiches: data.sandwiches,
     lat: data.lat,
     lon: data.lon,
-  })).filter((city) => city.sandwiches.length > 0);
+  })).filter(city => city.sandwiches.length > 0);
 
-  return citiesMap
+  return citiesMap;
 };
 
 export const getToppingTypes = (toppingsList: Topping[]) => {
@@ -45,4 +45,30 @@ export const getToppingTypes = (toppingsList: Topping[]) => {
   });
 
   return Array.from(toppingTypes);
-} 
+};
+
+export const populateOrders = (
+  orders: Order[],
+  sandwiches: Sandwich[],
+  toppings: Topping[],
+) => {
+  return orders.map(order => ({
+    ...order,
+    sandwich: sandwiches.find(s => s._id === order.sandwichId),
+    toppings: order.toppings.map(toppingId =>
+      toppings.find(t => t._id === toppingId),
+    ),
+  }));
+};
+
+export const depopulateOrders = (orders: PopulatedOrder[]) => {
+  return orders.map(order => {
+    const { sandwich, ...rest } = order;
+
+    return {
+      ...rest,
+      sandwichId: order.sandwich?._id || "",
+      toppings: order.toppings.map(topping => topping?._id || ""),
+    };
+  });
+};

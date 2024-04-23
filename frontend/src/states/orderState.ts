@@ -2,6 +2,13 @@ import { RecoilState, atom, selector } from "recoil";
 import { sandwichSelector } from "./sandwichState";
 import { toppingSelector } from "./toppingState";
 import { parseIntRound } from "../helpers/data-format-utils";
+import { getCurrentUserOrders } from "../services/order";
+import { populateOrders } from "../helpers/sandwich-utils";
+
+export const currentUserOrdersAtom: RecoilState<Order[]> = atom<Order[]>({
+  key: "currentUserOrdersAtom",
+  default: [],
+});
 
 export const currentOrderAtom: RecoilState<OrderBody> = atom<OrderBody>({
   key: "currentOrderAtom",
@@ -26,6 +33,22 @@ export const queriedOrderAtom: RecoilState<Order> = atom<Order>({
     price: 0,
     addOnNote: "",
     orderTime: new Date(),
+  },
+});
+
+export const currentUserOrdersSelector = selector({
+  key: "currentUserOrdersSelector",
+  get: async ({ get }) => {
+    const cachedAllOrderState = get(currentUserOrdersAtom);
+    const sandwiches = get(sandwichSelector);
+    const toppings = get(toppingSelector);
+
+    if (cachedAllOrderState.length > 0) {
+      return populateOrders(cachedAllOrderState, sandwiches, toppings);
+    }
+
+    const orders = await getCurrentUserOrders();
+    return populateOrders(orders, sandwiches, toppings);
   },
 });
 

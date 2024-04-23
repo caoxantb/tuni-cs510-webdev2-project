@@ -28,12 +28,12 @@ const SandwichSlider: React.FC = () => {
 
         return (
           <div key={sandwich._id}>
-            <StyledSandwichSlide className="lmao" imageUrl={sandwich.image}>
-              <h1 style={{ margin: "10px" }}>{name}</h1>
-              <h4 style={{ margin: "10px" }}>
+            <StyledSandwichSlide imageUrl={sandwich.image}>
+              <h1>{name}</h1>
+              <h4>
                 {vietnameseName.toLowerCase().split(" ").join("-")}
               </h4>
-              <p style={{ fontSize: "20px" }}>{sandwich.description}</p>
+              <p>{sandwich.description}</p>
             </StyledSandwichSlide>
           </div>
         );
@@ -57,6 +57,20 @@ const StyledSandwichSlide = styled.div<{
   flexDirection: "column",
   background: `linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url(/images${props.imageUrl}) no-repeat center center fixed`,
   backgroundSize: "cover",
+
+  "h1": {
+    margin: "10px",
+  }, 
+
+  "h4": {
+    margin: "10px",
+  },
+
+  "p": {
+    fontSize: "20px",
+  },
 }));
+
+
 
 export default SandwichSlider;

@@ -10,23 +10,21 @@ import {
   currentOrderPriceSelector,
   currentOrderSandwichSelector,
   currentOrderToppingSelector,
+  currentUserOrdersAtom,
   queriedOrderAtom,
 } from "../../states/orderState";
-import {
-  Button,
-  Divider,
-  Input,
-  InputNumber,
-  InputNumberProps,
-  Popconfirm,
-} from "antd";
+import { Button, Input, InputNumber, InputNumberProps, Popconfirm } from "antd";
 import styled from "@emotion/styled";
 import { parseIntRound } from "../../helpers/data-format-utils";
 import { activeOrderTab } from "../../states/orderTabState";
 import { createOrder } from "../../services/order";
+import OrderDetail from "./OrderDetail";
 
 const OrderFinalForm: React.FC = () => {
   const [currentOrder, setCurrentOrder] = useRecoilState(currentOrderAtom);
+  const [currentUserOrders, setCurrentUserOrders] = useRecoilState(
+    currentUserOrdersAtom,
+  );
   const currentSandwich = useRecoilValue(currentOrderSandwichSelector);
   const currentToppings = useRecoilValue(currentOrderToppingSelector);
   const currentPrice = useRecoilValue(currentOrderPriceSelector);
@@ -44,73 +42,48 @@ const OrderFinalForm: React.FC = () => {
     });
   };
 
+  console.log(currentUserOrders);
+
+  const QuantityInput = (
+    <StyledInputNumber
+      min={1}
+      max={10}
+      defaultValue={1}
+      onChange={updatePrice}
+    />
+  );
+
+  const AddOnNoteInput = (
+    <StyledInputArea
+      showCount
+      maxLength={100}
+      placeholder="Please provide us any additional information for your order!"
+      onChange={e => {
+        setCurrentOrder({
+          ...currentOrder,
+          addOnNote: e.target.value,
+        });
+      }}
+    />
+  );
+
   return (
     <>
-      <p>
-        <strong>Banh-mi</strong>
-      </p>
-      {currentSandwich && (
-        <StyledRow>
-          <div className="name">{currentSandwich.name}</div>
-          <div>{currentSandwich.price}</div>
-        </StyledRow>
-      )}
-      <p>
-        <strong>Toppings</strong>
-      </p>
-      {!!currentToppings.length &&
-        currentToppings.map(topping => (
-          <StyledRow key={topping._id}>
-            <div className="name">{topping.name}</div>
-            <div>{topping.price}</div>
-          </StyledRow>
-        ))}
-      <Divider />
-      <StyledRow>
-        <p className="title">
-          <strong>Price</strong>
-        </p>
-        <div>{currentPrice}</div>
-      </StyledRow>
-      <StyledRow>
-        <p className="title">
-          <strong>Quantity (max. 10)</strong>
-        </p>
-        <StyledInputNumber
-          min={1}
-          max={10}
-          defaultValue={1}
-          onChange={updatePrice}
-        />
-      </StyledRow>
-      <Divider />
-      <StyledRow>
-        <p className="title">
-          <strong>TOTAL PRICE</strong>
-        </p>
-        <div>
-          <strong>{currentOrder.price}</strong>
-        </div>
-      </StyledRow>
-      <p className="title">
-        <strong>ADD ON NOTE</strong>
-      </p>
-      <StyledInputArea
-        showCount
-        maxLength={100}
-        placeholder="Please provide us any additional information for your order!"
-        onChange={e => {
-          setCurrentOrder({
-            ...currentOrder,
-            addOnNote: e.target.value,
-          });
-        }}
+      <OrderDetail
+        type="form"
+        sandwich={currentSandwich}
+        toppings={currentToppings}
+        price={currentPrice}
+        totalPrice={currentOrder.price}
+        QuantityInput={QuantityInput}
+        AddOnNoteInput={AddOnNoteInput}
       />
       <div className="button-wrapper">
         <Button
           type="primary"
           onClick={async () => {
             const newOrder = await createOrder(currentOrder);
+            setCurrentUserOrders([newOrder, ...currentUserOrders]);
             setQueriedOrder(newOrder);
           }}
         >
@@ -134,16 +107,6 @@ const OrderFinalForm: React.FC = () => {
     </>
   );
 };
-
-const StyledRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .name {
-    padding: 0 5%;
-  }
-`;
 
 const StyledInputArea = styled(Input.TextArea)`
   height: 120px;

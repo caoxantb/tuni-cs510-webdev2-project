@@ -28,7 +28,7 @@ const OrderToppings: React.FC = () => {
     if (toppings.state === "hasValue") {
       setToppingState(toppings.contents);
     }
-  }, []);
+  }, [toppings]);
 
   const addToppingToOrder = (topping: Topping) => {
     setCurrentOrder({

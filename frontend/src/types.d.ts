@@ -14,6 +14,11 @@ type OrderStatus = "ordered" | "received" | "inQueue" | "ready" | "failed";
 
 type OrderBody = Omit<Order, "userId" | "orderTime" | "status" | "_id">;
 
+type PopulatedOrder = Omit<Order, "toppings"> & {
+  sandwich: Sandwich | undefined;
+  toppings: (Topping | undefined)[];
+}
+
 type User = {
   _id: string;
   username: string;
