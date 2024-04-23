@@ -9,14 +9,17 @@ import { Link } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
 
 import styled from "@emotion/styled";
+import { currentUserOrdersAtom } from "../states/orderState";
 
 const NavigationBar: React.FC = () => {
   const setModalOpen = useSetRecoilState(modalOpenAtom);
   const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
+  const setAllOrder = useSetRecoilState(currentUserOrdersAtom);
 
   const handleLogout = async () => {
     await logout();
     setCurrentUser(null);
+    setAllOrder([]);
   };
 
   const navbarItems: MenuProps["items"] = [
@@ -45,7 +48,9 @@ const NavigationBar: React.FC = () => {
         {
           key: "all-orders",
           label: (
-            <Link to={`/user/${currentUser?._id}/orders`}>View your orders</Link>
+            <Link to={`/user/${currentUser?._id}/orders`}>
+              View your orders
+            </Link>
           ),
         },
         {
@@ -61,7 +66,7 @@ const NavigationBar: React.FC = () => {
         },
         {
           key: "logout",
-          label: <div>LOGOUT</div>,
+          label: <Link to="/">LOGOUT</Link>,
           onClick: () => handleLogout(),
         },
       ],

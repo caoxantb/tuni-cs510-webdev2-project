@@ -4,6 +4,7 @@ import { toppingSelector } from "./toppingState";
 import { parseIntRound } from "../helpers/data-format-utils";
 import { getCurrentUserOrders } from "../services/order";
 import { populateOrders } from "../helpers/sandwich-utils";
+import { currentUserAtom } from "./userState";
 
 export const currentUserOrdersAtom: RecoilState<Order[]> = atom<Order[]>({
   key: "currentUserOrdersAtom",
@@ -42,6 +43,9 @@ export const currentUserOrdersSelector = selector({
     const cachedAllOrderState = get(currentUserOrdersAtom);
     const sandwiches = get(sandwichSelector);
     const toppings = get(toppingSelector);
+    const currentUser = get(currentUserAtom);
+
+    if (!currentUser) return [];
 
     if (cachedAllOrderState.length > 0) {
       return populateOrders(cachedAllOrderState, sandwiches, toppings);
