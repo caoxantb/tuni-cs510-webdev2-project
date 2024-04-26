@@ -1,13 +1,14 @@
 import { Server } from "socket.io";
 
-const PORT = process.env.PORT || 8080;
+const CLIENT_PORT = 5173;
 
 let io;
 
 export const connectWS = server => {
   io = new Server(server, {
     cors: {
-      origin: `http://localhost:${PORT}`,
+      origin: `http://localhost:${CLIENT_PORT}`,
+      methods: ["GET", "POST"],
     },
   });
 
@@ -17,9 +18,6 @@ export const connectWS = server => {
   return io;
 };
 
-export const getIO = () => {
-  if (!io) {
-    throw new Error("Socket.io not initialized!");
-  }
-  return io;
+export const sendtoWS = (event, message) => {
+  io.emit(event, message);
 };

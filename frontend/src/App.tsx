@@ -9,9 +9,11 @@ import Home from "./components/Home";
 import SandwichList from "./components/sandwich/SandwichList";
 import OrderPage from "./components/order/OrderPage";
 import OrderList from "./components/order/OrderList";
+import { useWs } from "./hooks/useWS";
 
 const App: React.FC = () => {
   useAuth();
+  useWs();
 
   return (
     <>
