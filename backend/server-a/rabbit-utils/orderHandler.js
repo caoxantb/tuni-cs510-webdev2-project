@@ -8,26 +8,42 @@ export const orderHandler = async (order, action) => {
     case "created":
       sendtoWS(
         event,
-        await Order.findByIdAndUpdate(order._id, { status: "received" }),
+        await Order.findByIdAndUpdate(
+          order._id,
+          { status: "received" },
+          { new: true },
+        ),
       );
       break;
     case "acked":
       sendtoWS(
         event,
-        await Order.findByIdAndUpdate(order._id, { status: "inQueue" }),
+        await Order.findByIdAndUpdate(
+          order._id,
+          { status: "inQueue" },
+          { new: true },
+        ),
       );
       break;
     case "nacked":
       sendtoWS(
         event,
-        await Order.findByIdAndUpdate(order._id, { status: "failed" }),
+        await Order.findByIdAndUpdate(
+          order._id,
+          { status: "failed" },
+          { new: true },
+        ),
       );
       break;
     case "done":
       const orderParsed = JSON.parse(order);
       sendtoWS(
         event,
-        await Order.findByIdAndUpdate(orderParsed._id, { status: "ready" }),
+        await Order.findByIdAndUpdate(
+          orderParsed._id,
+          { status: "ready" },
+          { new: true },
+        ),
       );
       break;
     default:
