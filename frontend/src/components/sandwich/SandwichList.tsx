@@ -16,7 +16,7 @@ const SandwichList: React.FC = () => {
     if (sandwiches.state === "hasValue") {
       setSandwichState(sandwiches.contents);
     }
-  }, []);
+  }, [sandwiches]);
 
   return (
     sandwiches.state === "hasValue" && (

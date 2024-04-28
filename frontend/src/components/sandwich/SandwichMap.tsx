@@ -1,20 +1,13 @@
-import React, { useEffect } from "react";
-import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
-import { sandwichAtom, sandwichSelector } from "../../states/sandwichState";
+import React from "react";
+import { useRecoilValueLoadable } from "recoil";
+import { sandwichSelector } from "../../states/sandwichState";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { getCities } from "../../helpers/sandwich-utils";
 
 import styled from "@emotion/styled";
 
 const SandwichMap: React.FC = () => {
-  const setSandwichState = useSetRecoilState(sandwichAtom);
   const sandwiches = useRecoilValueLoadable(sandwichSelector);
-
-  useEffect(() => {
-    if (sandwiches.state === "hasValue") {
-      setSandwichState(sandwiches.contents);
-    }
-  }, []);
 
   return (
     <StyledSandwichMenuWrapper>

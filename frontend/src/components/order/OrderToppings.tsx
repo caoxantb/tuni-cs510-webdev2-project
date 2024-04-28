@@ -63,12 +63,14 @@ const OrderToppings: React.FC = () => {
               {toppings.contents
                 .filter(topping => topping.type === type)
                 .map(topping => (
-                  <Card
+                  <StyledCard
+                    isChosen={currentOrder.toppings.includes(topping._id)}
                     key={topping._id}
                     hoverable={true}
                     actions={[
                       !currentOrder.toppings.includes(topping._id) ? (
                         <StyledCardAction
+                          action="add"
                           onClick={() => addToppingToOrder(topping)}
                         >
                           <PlusCircleOutlined />
@@ -76,6 +78,7 @@ const OrderToppings: React.FC = () => {
                         </StyledCardAction>
                       ) : (
                         <StyledCardAction
+                          action="remove"
                           onClick={() => removeToppingFromOrder(topping)}
                         >
                           <MinusCircleOutlined />
@@ -97,7 +100,7 @@ const OrderToppings: React.FC = () => {
                         </>
                       }
                     />
-                  </Card>
+                  </StyledCard>
                 ))}
             </div>
           </div>
@@ -125,10 +128,22 @@ const StyledCardCoverImage = styled(Image)`
   object-fit: cover;
 `;
 
-const StyledCardAction = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-`;
+const StyledCard = styled(Card)<{ isChosen: boolean }>(props => ({
+  border: props.isChosen ? "4px solid darkgoldenrod" : "1px solid #f0f0f0",
+  "&:hover": {
+    border: props.isChosen ? "4px solid darkgoldenrod" : "1px solid #f0f0f0",
+  },
+}));
+
+const StyledCardAction = styled.div<{ action: string }>(props => ({
+  display: "flex",
+  justifyContent: "center",
+  gap: "8px",
+  color: props.action === "add" ? "#a17f1a" : "red",
+  transition: "color 0.3s ease",
+  "&:hover": {
+    color: props.action === "add" ? "gold" : "pink",
+  },
+}));
 
 export default OrderToppings;

@@ -53,7 +53,8 @@ const OrderSandwich: React.FC = () => {
         )}
         <div className="grid-container">
           {sandwiches.contents.map((sandwich: Sandwich) => (
-            <Card
+            <StyledCard
+              isChosen={sandwich._id === currentOrder?.sandwichId}
               key={sandwich._id}
               hoverable={true}
               cover={
@@ -65,13 +66,17 @@ const OrderSandwich: React.FC = () => {
               actions={[
                 sandwich._id !== currentOrder?.sandwichId ? (
                   <StyledCardAction
+                    action="add"
                     onClick={() => addSandwichToOrder(sandwich)}
                   >
                     <PlusCircleOutlined />
                     <span>Add to Order</span>
                   </StyledCardAction>
                 ) : (
-                  <StyledCardAction onClick={removeSandwichFromOrder}>
+                  <StyledCardAction
+                    action="remove"
+                    onClick={removeSandwichFromOrder}
+                  >
                     <MinusCircleOutlined />
                     <span>Remove from Order</span>
                   </StyledCardAction>
@@ -86,7 +91,7 @@ const OrderSandwich: React.FC = () => {
                 }
                 description={sandwich.description}
               />
-            </Card>
+            </StyledCard>
           ))}
         </div>
       </StyledOrderSandwichWrapper>
@@ -106,16 +111,17 @@ const StyledOrderSandwichWrapper = styled.div`
   }
 `;
 
+const StyledCard = styled(Card)<{isChosen: boolean}>(props => ({
+  border: props.isChosen ? "4px solid darkgoldenrod" : "1px solid #f0f0f0",
+  "&:hover": {
+    border: props.isChosen ? "4px solid darkgoldenrod" : "1px solid #f0f0f0",
+  }
+}))
+
 const StyledCardCoverImage = styled(Image)`
   width: 100% !important;
   height: 480px !important;
   object-fit: cover;
-`;
-
-const StyledCardAction = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 8px;
 `;
 
 const StyledCardMeta = styled(Card.Meta)`
@@ -125,5 +131,16 @@ const StyledCardMeta = styled(Card.Meta)`
     overflow: scroll;
   }
 `;
+
+const StyledCardAction = styled.div<{ action: string }>(props => ({
+  display: "flex",
+  justifyContent: "center",
+  gap: "8px",
+  color: props.action === "add" ? "#a17f1a" : "red",
+  transition: "color 0.3s ease",
+  "&:hover": {
+    color: props.action === "add" ? "gold" : "pink",
+  },
+}));
 
 export default OrderSandwich;
