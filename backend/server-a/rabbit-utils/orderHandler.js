@@ -1,12 +1,10 @@
 import Order from "../models/order.js";
-import { sendtoWS } from "../ws.js";
+import { sendToWebSocket } from "../socket-io.js";
 
-const event = "orderStatus";
-
-export const orderHandler = async (order, action) => {
+export const orderHandler = async (order, action, event = "orderStatus") => {
   switch (action) {
     case "created":
-      sendtoWS(
+      sendToWebSocket(
         event,
         await Order.findByIdAndUpdate(
           order._id,
@@ -16,7 +14,7 @@ export const orderHandler = async (order, action) => {
       );
       break;
     case "acked":
-      sendtoWS(
+      sendToWebSocket(
         event,
         await Order.findByIdAndUpdate(
           order._id,
@@ -26,7 +24,7 @@ export const orderHandler = async (order, action) => {
       );
       break;
     case "nacked":
-      sendtoWS(
+      sendToWebSocket(
         event,
         await Order.findByIdAndUpdate(
           order._id,
@@ -37,7 +35,7 @@ export const orderHandler = async (order, action) => {
       break;
     case "done":
       const orderParsed = JSON.parse(order);
-      sendtoWS(
+      sendToWebSocket(
         event,
         await Order.findByIdAndUpdate(
           orderParsed._id,

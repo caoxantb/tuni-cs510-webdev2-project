@@ -54,14 +54,6 @@ const NavigationBar: React.FC = () => {
           ),
         },
         {
-          key: "update-user",
-          label: (
-            <Link to={`/user/${currentUser?._id}/update`}>
-              Update your info
-            </Link>
-          ),
-        },
-        {
           type: "divider",
         },
         {

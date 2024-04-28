@@ -18,6 +18,6 @@ export const connectWS = server => {
   return io;
 };
 
-export const sendtoWS = (event, message) => {
+export const sendToWebSocket = (event, message) => {
   io.emit(event, message);
 };

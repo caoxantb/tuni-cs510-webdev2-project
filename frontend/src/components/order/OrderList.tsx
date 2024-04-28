@@ -1,34 +1,33 @@
-import React, { useEffect } from "react";
-import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
-import {
-  currentUserOrdersAtom,
-  currentUserOrdersSelector,
-} from "../../states/orderState";
+import React from "react";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { currentUserOrdersAtom } from "../../states/orderState";
 import { useParams } from "react-router-dom";
 import { Collapse } from "antd";
 import styled from "@emotion/styled";
 import { parseDate, parseIntRound } from "../../helpers/data-format-utils";
-import { depopulateOrders } from "../../helpers/sandwich-utils";
 import OrderDetail from "./OrderDetail";
+import { sandwichSelector } from "../../states/sandwichState";
+import { populateOrders } from "../../helpers/sandwich-utils";
+import { toppingSelector } from "../../states/toppingState";
 
 const OrderList: React.FC = () => {
-  const setAllOrder = useSetRecoilState(currentUserOrdersAtom);
-  const orders = useRecoilValueLoadable(currentUserOrdersSelector);
+  const sandwiches = useRecoilValueLoadable(sandwichSelector);
+  const toppingList = useRecoilValueLoadable(toppingSelector);
+  const orders = useRecoilValue(currentUserOrdersAtom);
   const { userId } = useParams();
 
-  useEffect(() => {
-    if (orders.state === "hasValue") {
-      const depopulateOrder = depopulateOrders(orders.contents);
-      setAllOrder(depopulateOrder);
-    }
-  }, []);
-
   return (
-    orders.state === "hasValue" && (
+    orders &&
+    sandwiches.state === "hasValue" &&
+    toppingList.state === "hasValue" && (
       <StyledAccordionWrapper>
         <StyledCollapse
           accordion
-          items={orders.contents
+          items={populateOrders(
+            orders,
+            sandwiches.contents,
+            toppingList.contents,
+          )
             .filter(order => order.userId === userId)
             .sort(
               (a, b) =>

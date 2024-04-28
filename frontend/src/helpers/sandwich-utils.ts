@@ -60,15 +60,3 @@ export const populateOrders = (
     ),
   }));
 };
-
-export const depopulateOrders = (orders: PopulatedOrder[]) => {
-  return orders.map(order => {
-    const { sandwich, ...rest } = order;
-
-    return {
-      ...rest,
-      sandwichId: order.sandwich?._id || "",
-      toppings: order.toppings.map(topping => topping?._id || ""),
-    };
-  });
-};

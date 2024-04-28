@@ -10,7 +10,6 @@ import {
   currentOrderPriceSelector,
   currentOrderSandwichSelector,
   currentOrderToppingSelector,
-  currentUserOrdersAtom,
   queriedOrderAtom,
 } from "../../states/orderState";
 import { Button, Input, InputNumber, InputNumberProps, Popconfirm } from "antd";
@@ -22,9 +21,6 @@ import OrderDetail from "./OrderDetail";
 
 const OrderFinalForm: React.FC = () => {
   const [currentOrder, setCurrentOrder] = useRecoilState(currentOrderAtom);
-  const [currentUserOrders, setCurrentUserOrders] = useRecoilState(
-    currentUserOrdersAtom,
-  );
   const currentSandwich = useRecoilValue(currentOrderSandwichSelector);
   const currentToppings = useRecoilValue(currentOrderToppingSelector);
   const currentPrice = useRecoilValue(currentOrderPriceSelector);
@@ -41,8 +37,6 @@ const OrderFinalForm: React.FC = () => {
       price: parseIntRound(currentPrice * quantity),
     });
   };
-
-  console.log(currentUserOrders);
 
   const QuantityInput = (
     <StyledInputNumber
@@ -83,7 +77,6 @@ const OrderFinalForm: React.FC = () => {
           type="primary"
           onClick={async () => {
             const newOrder = await createOrder(currentOrder);
-            setCurrentUserOrders([newOrder, ...currentUserOrders]);
             setQueriedOrder(newOrder);
           }}
         >

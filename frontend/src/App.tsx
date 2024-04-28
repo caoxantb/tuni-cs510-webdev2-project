@@ -12,7 +12,6 @@ import OrderList from "./components/order/OrderList";
 
 const App: React.FC = () => {
   useAuth();
-  // useWs();
 
   return (
     <>
@@ -23,7 +22,6 @@ const App: React.FC = () => {
         <Route path="/sandwiches/" element={<SandwichList />} />
         <Route path="/order/" element={<OrderPage />} />
         <Route path="/user/:userId/orders" element={<OrderList />} />
-        {/* <Route path="/user/:userId/update" element={<User />} /> */}
       </Routes>
     </>
   );

@@ -9,7 +9,7 @@ import {
 import styled from "@emotion/styled";
 import OrderFinalForm from "./OrderFinalForm";
 import OrderFinalSteps from "./OrderFinalSteps";
-import { useWs } from "../../hooks/useWS";
+import { useWebSocket } from "../../hooks/useWebSocket";
 
 const OrderFinal: React.FC = () => {
   const [currentOrder, setCurrentOrder] = useRecoilState(currentOrderAtom);
@@ -21,7 +21,7 @@ const OrderFinal: React.FC = () => {
     setCurrentOrder({ ...currentOrder, price: currentPrice });
   }, [currentPrice]);
 
-  useWs();
+  useWebSocket();
 
   return (
     <StyledOrderFinalWrapper>

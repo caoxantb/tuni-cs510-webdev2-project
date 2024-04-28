@@ -3,7 +3,7 @@ import http from "http";
 import app from "./app.js";
 import { connectDatabase, disconnectDatabase } from "./db/connection.js";
 import { getTask } from "./rabbit-utils/receiveTask.js";
-import { connectWS } from "./ws.js";
+import { connectWS } from "./socket-io.js";
 
 connectDatabase();
 getTask("rapid-runner-rabbit", "frontline-order-queue");
