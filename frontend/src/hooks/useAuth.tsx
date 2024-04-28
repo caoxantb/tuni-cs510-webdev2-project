@@ -4,6 +4,9 @@ import { currentUserAtom, currentUserSelector } from "../states/userState";
 import { currentUserOrdersAtom } from "../states/orderState";
 import { getCurrentUserOrders } from "../services/order";
 
+/**
+ * Custom hook for managing authentication.
+ */
 export const useAuth = () => {
   const currentUser = useRecoilValueLoadable(currentUserSelector);
   const setCurrentUser = useSetRecoilState(currentUserAtom);

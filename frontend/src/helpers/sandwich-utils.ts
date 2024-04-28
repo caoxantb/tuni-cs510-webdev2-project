@@ -1,5 +1,10 @@
 import citiesGeoData from "./geo-location.json";
 
+/**
+ * Parses the sandwich name and returns an object with the name and Vietnamese name.
+ * @param {string} name - The name of the sandwich.
+ * @returns {Object} - An object with the parsed name and Vietnamese name.
+ */
 export const parseSandwichName = (name: string) => {
   const names = name.match(/^([\w\s]+)\s*(?:\(([^)]+)\))?$/);
   return {
@@ -8,6 +13,11 @@ export const parseSandwichName = (name: string) => {
   };
 };
 
+/**
+ * Retrieves a list of cities along with their sandwich data based on the provided sandwiches list.
+ * @param sandwichesList - The list of sandwiches.
+ * @returns An array of cities with their corresponding sandwich data.
+ */
 export const getCities = (sandwichesList: Sandwich[]) => {
   const cities = new Map<
     string,
@@ -37,6 +47,11 @@ export const getCities = (sandwichesList: Sandwich[]) => {
   return citiesMap;
 };
 
+/**
+ * Retrieves the unique topping types from a list of toppings.
+ * @param {Topping[]} toppingsList - The list of toppings.
+ * @returns {string[]} An array of unique topping types.
+ */
 export const getToppingTypes = (toppingsList: Topping[]) => {
   const toppingTypes = new Set<string>();
 
@@ -47,6 +62,13 @@ export const getToppingTypes = (toppingsList: Topping[]) => {
   return Array.from(toppingTypes);
 };
 
+/**
+ * Populates the orders with sandwich and topping information.
+ * @param {Order[]} orders - The array of orders.
+ * @param {Sandwich[]} sandwiches - The array of sandwiches.
+ * @param {Topping[]} toppings - The array of toppings.
+ * @returns {Order[]} - The updated array of orders with populated sandwich and topping information.
+ */
 export const populateOrders = (
   orders: Order[],
   sandwiches: Sandwich[],

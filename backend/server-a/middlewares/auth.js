@@ -4,6 +4,14 @@ import { Forbidden } from "../utils/httpError.js";
 import dotenv from "dotenv";
 dotenv.config();
 
+/**
+ * Middleware function to authenticate a user using a token.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Promise<void>} - A promise that resolves when the authentication is complete.
+ * @throws {Forbidden} - If the token is invalid or the user is unknown.
+ */
 export const authenticateUser = async (req, res, next) => {
   const token = req.signedCookies?.token;
   if (!token) {
@@ -25,6 +33,10 @@ export const authenticateUser = async (req, res, next) => {
 
   req.user = user;
   const { username, email } = user.toJSON();
-  res.cookie("token", jwt.sign({ username, email }, process.env.JWT_SECRET), cookieOptions);
+  res.cookie(
+    "token",
+    jwt.sign({ username, email }, process.env.JWT_SECRET),
+    cookieOptions,
+  );
   next();
 };

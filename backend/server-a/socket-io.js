@@ -4,6 +4,11 @@ const CLIENT_PORT = 5173;
 
 let io;
 
+/**
+ * Connects the server to a WebSocket.
+ * @param {Object} server - The server object.
+ * @returns {Object} - The WebSocket object.
+ */
 export const connectWS = server => {
   io = new Server(server, {
     cors: {
@@ -18,6 +23,12 @@ export const connectWS = server => {
   return io;
 };
 
+/**
+ * Sends a message to the WebSocket.
+ * @param {string} event - The event to emit.
+ * @param {*} message - The message to send.
+ * @returns {void}
+ */
 export const sendToWebSocket = (event, message) => {
   io.emit(event, message);
 };

@@ -5,6 +5,12 @@ dotenv.config();
 import { User } from "../models/index.js";
 import { BadRequest, Forbidden, NotFound } from "../utils/httpError.js";
 
+/**
+ * Registers a new user.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The newly created user.
+ */
 export const userRegister = async (req, res) => {
   const saltRounds = 10;
   const { username, email, role, password } = req.body;
@@ -37,6 +43,12 @@ export const userRegister = async (req, res) => {
   res.status(201).json(newUser);
 };
 
+/**
+ * Logs in a user.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} - The user object.
+ */
 export const userLogin = async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
   const validCredentials = !user
@@ -57,6 +69,12 @@ export const userLogin = async (req, res) => {
   res.json(user);
 };
 
+/**
+ * Logs out the user.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} - The result of the logout operation.
+ */
 export const userLogout = async (req, res) => {
   if (req.user) {
     res.clearCookie("token", { ...res.app.get("cookieOptions"), signed: true });
@@ -64,11 +82,25 @@ export const userLogout = async (req, res) => {
   res.status(201).json({ message: "User logged out!" });
 };
 
+/**
+ * Get the current user.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The current user object or null if not authenticated.
+ */
 export const getCurrentUser = (req, res) => {
   if (!req.user) return res.json(null);
   res.json(req.user);
-}
+};
 
+/**
+ * Get user by username.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves with the user object or throws a NotFound error if the user is not found.
+ * @throws {NotFound} - If the user is not found.
+ */
 export const getUserByUsername = async (req, res) => {
   const { username } = req.params;
   const user = await User.findOne({ username });
@@ -78,6 +110,14 @@ export const getUserByUsername = async (req, res) => {
   res.json(user);
 };
 
+/**
+ * Updates a user.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The updated user.
+ * @throws {Forbidden} If the user does not have permission to update this user.
+ * @throws {NotFound} If the user is not found.
+ */
 export const updateUser = async (req, res) => {
   const { username } = req.params;
   if (req.user?.username !== username) {
@@ -90,6 +130,14 @@ export const updateUser = async (req, res) => {
   res.json(user);
 };
 
+/**
+ * Deletes a user.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves when the user is deleted.
+ * @throws {Forbidden} - If the user does not have permission to delete the user.
+ * @throws {NotFound} - If the user to be deleted is not found.
+ */
 export const deleteUser = async (req, res) => {
   const { username } = req.params;
   if (req.user?.role !== "admin" || req.user?.username === username) {
