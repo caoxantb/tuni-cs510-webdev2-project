@@ -9,7 +9,7 @@ let io;
  * @param {Object} server - The server object.
  * @returns {Object} - The WebSocket object.
  */
-export const connectWS = server => {
+export const connectWebSocket = server => {
   io = new Server(server, {
     cors: {
       origin: `http://localhost:${CLIENT_PORT}`,

@@ -1,5 +1,5 @@
 import Order from "../models/order.js";
-import { sendToWebSocket } from "../socket-io.js";
+import { sendToWebSocket } from "../utils/socketIO.js";
 
 export const orderHandler = async (order, action, event = "orderStatus") => {
   switch (action) {

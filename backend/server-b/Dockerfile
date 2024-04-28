@@ -8,18 +8,26 @@
 
 #FROM node:version...
 
+# Use the official Node.js 16 image
 FROM node:16
 
+# Set the working directory inside the container
 ENV APP_HOME=/app
 
+# Copy package.json and package-lock.json files to the working directory
 WORKDIR ${APP_HOME}
 
+# Install dependencies
 COPY package*.json ./
 
+# Install dependencies
 RUN npm install
 
+# Copy the rest of the application files to the working directory
 COPY . .
 
+# Make the wait-for-it.sh script executable
 RUN chmod +x ./utils/wait-for-it.sh
 
+# Command to start the application
 CMD ["npm", "start"]
