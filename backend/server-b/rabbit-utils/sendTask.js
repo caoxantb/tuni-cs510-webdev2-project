@@ -6,9 +6,10 @@
 
 import amqp from "amqplib";
 
+
 //TODO: transform to async function
 export const addTask = function (rabbitHost, queueName, order) {
-  amqp.connect("amqp://" + rabbitHost).then(function (c) {
+  amqp.connect(rabbitHost).then(function (c) {
     c.createConfirmChannel().then(function (ch) {
       ch.sendToQueue(
         queueName,

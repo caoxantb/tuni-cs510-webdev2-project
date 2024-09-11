@@ -1,3 +1,5 @@
 import { getTask } from "./rabbit-utils/receiveTask.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-getTask("rapid-runner-rabbit", "backline-order-queue");
+getTask(process.env.RABBITMQ_HOST, "backline-order-queue");

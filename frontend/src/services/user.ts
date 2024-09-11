@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api/v1/user";
+const BASE_URL = "https://server-a.fly.dev/api/v1/user";
 
 /**
  * Registers a new user on the server.

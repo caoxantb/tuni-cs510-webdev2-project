@@ -6,11 +6,13 @@
 
 import amqp from "amqplib";
 import { addTask } from "./sendTask.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 //TODO: transform to async function
 export const getTask = function (rabbitHost, queueName) {
   amqp
-    .connect("amqp://" + rabbitHost)
+    .connect(rabbitHost)
     .then(function (conn) {
       process.once("SIGINT", function () {
         conn.close();
@@ -36,7 +38,7 @@ export const getTask = function (rabbitHost, queueName) {
           //console.log(" [x] Task takes %d seconds", secs);
           setTimeout(function () {
             console.log(new Date(), " [x] Done");
-            addTask("rapid-runner-rabbit", "frontline-order-queue", body);
+            addTask(process.env.RABBITMQ_HOST, "frontline-order-queue", body);
             ch.ack(msg);
           }, 10000);
         }

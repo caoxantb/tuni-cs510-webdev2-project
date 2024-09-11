@@ -9,7 +9,7 @@ import { orderHandler } from "./orderHandler.js";
 //TODO: transform to async function
 export const getTask = function (rabbitHost, queueName) {
   amqp
-    .connect("amqp://" + rabbitHost)
+    .connect("amqps://gqmgnypa:Hj2SOnLLJitVYl2qblfDDTHf_wR7BQYs@rat.rmq2.cloudamqp.com/gqmgnypa")
     .then(function (conn) {
       process.once("SIGINT", function () {
         conn.close();

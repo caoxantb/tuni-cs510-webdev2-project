@@ -15,7 +15,8 @@
   "author": "Xuan-An Cao (an.cao@tuni.fi) & Nhan Chau (nhan.chau@tuni.fi)",
   "license": "ISC",
   "dependencies": {
-    "amqplib": "^0.10.3"
+    "amqplib": "^0.10.3",
+    "dotenv": "^16.4.5"
   },
   "type": "module",
   "devDependencies": {
