@@ -21,8 +21,8 @@ const cookieOptions = {
   httpOnly: true,
   maxAge: 7 * 24 * 60 * 60 * 1000, // one week
   path: "/",
-  sameSite: "strict",
-  secure: false,
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+  secure: process.env.NODE_ENV === "production",
 };
 const cookieSecret = process.env.COOKIE_SECRET;
 

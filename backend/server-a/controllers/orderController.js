@@ -3,6 +3,9 @@ import { Unauthorized, Forbidden } from "../utils/httpError.js";
 import { orderHandler } from "../rabbit-utils/orderHandler.js";
 import { addTask } from "../rabbit-utils/sendTask.js";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 /**
  * Get all orders.
  * @param {Object} req - The request object.
@@ -80,7 +83,7 @@ export const createOrder = async (req, res) => {
   const newOrder = await Order.create(order);
 
   await orderHandler(newOrder, "created");
-  addTask("rapid-runner-rabbit", "backline-order-queue", newOrder);
+  addTask(process.env.RABBITMQ_HOST, "backline-order-queue", newOrder);
 
   res.status(201).json(newOrder);
 };

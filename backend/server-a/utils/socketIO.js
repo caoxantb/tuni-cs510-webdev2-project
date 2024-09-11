@@ -1,7 +1,5 @@
 import { Server } from "socket.io";
 
-const CLIENT_PORT = 5173;
-
 let io;
 
 /**
@@ -12,7 +10,7 @@ let io;
 export const connectWebSocket = server => {
   io = new Server(server, {
     cors: {
-      origin: `http://localhost:${CLIENT_PORT}`,
+      origin: "https://vinbanhmi.netlify.app",
       methods: ["GET", "POST"],
     },
   });
