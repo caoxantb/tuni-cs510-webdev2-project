@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
 
-const URL = "http://localhost:8080";
+const URL = "https://server-a.fly.dev";
 
 export const socket = io(URL);
